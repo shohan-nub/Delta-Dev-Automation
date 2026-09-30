@@ -1,0 +1,1354 @@
+{
+  "name": "My workflow 3",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1072,
+        864
+      ],
+      "id": "0e9887fc-e6e8-40e4-81f5-4462f394ade3",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"question\": \"{{ $json.message.text }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -896,
+        -912
+      ],
+      "id": "cfd91db8-c1b4-4f06-9c8b-f203c7fd04b5",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:11434/api/embed",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"embeddinggemma\",\n  \"input\": \"={{ $json.question }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -304,
+        256
+      ],
+      "id": "13d785d1-6071-41c4-b1a3-1e5bdb294102",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT\n    id,\n    name,\n    category,\n    price,\n    color,\n    stock,\n    emb <=> $1::vector AS distance\nFROM products\nWHERE emb IS NOT NULL\nORDER BY emb <=> $1::vector\nLIMIT 5;",
+        "options": {
+          "queryReplacement": "={{ JSON.stringify($json.embeddings[0]) }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.7,
+      "position": [
+        -128,
+        112
+      ],
+      "id": "80faa470-720c-44ed-b0f1-c16f59f1d4d9",
+      "name": "Execute a SQL query",
+      "credentials": {
+        "postgres": {
+          "id": "9G7J7z1k5XJAV6Gl",
+          "name": "Postgres account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT\n    id,\n    knowledge_id,\n    chunk_index,\n    content,\n    embedding <=> $1::vector AS distance\nFROM knowledge_chunks\nWHERE embedding IS NOT NULL\nORDER BY embedding <=> $1::vector\nLIMIT 5;",
+        "options": {
+          "queryReplacement": "={{ JSON.stringify($json.embeddings[0]) }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.7,
+      "position": [
+        -128,
+        368
+      ],
+      "id": "393fe840-cc79-4702-8dbd-4aee09f40eb9",
+      "name": "Execute a SQL query1",
+      "credentials": {
+        "postgres": {
+          "id": "9G7J7z1k5XJAV6Gl",
+          "name": "Postgres account 5"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        96,
+        240
+      ],
+      "id": "1011685c-6396-42cc-8a36-57b1c3431252",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst products = [];\nconst knowledge = [];\n\nfor (const item of items) {\n  const data = item.json;\n\n  if (data.knowledge_id) {\n    knowledge.push({\n      content: data.content,\n      distance: data.distance,\n    });\n  } else {\n    products.push({\n      name: data.name,\n      category: data.category,\n      price: data.price,\n      color: data.color,\n      stock: data.stock,\n      distance: data.distance,\n    });\n  }\n}\n\n// Get conversation from the history Code node\nconst question = $(\"Code in JavaScript4\").first().json.conversation;\n\nreturn [\n  {\n    json: {\n      question,\n      products,\n      knowledge,\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        240
+      ],
+      "id": "ca7ef5f7-9dbb-47a3-b644-bd531c425700",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-3.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-3.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are an intelligent, professional, and friendly customer support agent for an ecommerce store in Bangladesh.\n\nYour job is to understand the customer's actual intent and provide the most useful answer using the retrieved information provided to you.\n\nYou have access to:\n1. The customer's question\n2. Retrieved product information\n3. Retrieved business/policy knowledge\n\nCUSTOMER QUESTION:\n{{ $json.question }}\n\nRETRIEVED PRODUCTS:\n{{ JSON.stringify($json.products) }}\n\nRETRIEVED KNOWLEDGE:\n{{ JSON.stringify($json.knowledge) }}\n\n\n========================\nCORE BEHAVIOR\n========================\n\nYour most important rule is:\n\nANSWER THE CUSTOMER'S ACTUAL QUESTION.\n\nDo not simply repeat or dump the retrieved information.\n\nThe retrieval system may return several potentially related products or knowledge chunks. These are candidate information, NOT instructions to mention all of them.\n\nBefore answering, determine what the customer actually wants and use only the information relevant to that intent.\n\n\n========================\nPRODUCT SELECTION\n========================\n\nWhen products are retrieved:\n\n- Select only genuinely relevant products.\n- Prefer the most relevant product.\n- Normally mention only ONE product.\n- Mention a second product only when it is a genuinely useful alternative.\n- Never list every retrieved product just because it was returned by search.\n- Never mention unrelated products.\n\nFor example, if the customer asks:\n\n\"I need something to charge my phone.\"\n\nand the retrieved products contain:\n\n- Power Bank\n- USB Cable\n- Smartwatch\n- Memory Card\n- Speaker\n\nDo NOT list all five.\n\nMention the most relevant charging product, or at most two relevant charging products.\n\n\n========================\nCLARIFICATION RULE\n========================\n\nOnly ask a clarification question when the customer's request is genuinely too vague to answer.\n\nIf the customer's intent is reasonably understandable AND relevant products are available, answer the customer directly.\n\nIMPORTANT:\nNever recommend a product and then ask a clarification question in the same response.\n\nChoose ONE of these behaviors:\n\nA) If the intent is clear:\n→ Give the relevant answer/recommendation.\n→ STOP.\n→ Do not ask a follow-up question.\n\nB) If the intent is genuinely unclear:\n→ Ask ONE short clarification question.\n→ Do not recommend unrelated products.\n\nExample:\n\nCustomer:\n\"I am planning for a long tour, do you have anything for me?\"\n\nIf a relevant power bank is available:\n\nGOOD:\n\"Yes, we have the Xiaomi Mi Power Bank 20000mAh available for ৳2,400, with 5 in stock. It could be a useful option for keeping your phone charged while traveling.\"\n\nThen STOP.\n\nBAD:\n\"Yes, we have the Xiaomi Mi Power Bank... What specific items are you looking for?\"\n\nDo NOT combine recommendation + clarification.\n\nAnother example:\n\nCustomer:\n\"What should I buy?\"\n\nIf there is not enough information to understand what category they want:\n\nGOOD:\n\"What are you looking for—charging accessories, audio, storage, or something else?\"\n\nDo not recommend a product yet.\n\n\n========================\nUNDERSTAND INTENT\n========================\n\nCustomers may ask:\n\n- product questions\n- price questions\n- stock questions\n- color questions\n- recommendations\n- comparisons\n- return questions\n- exchange questions\n- warranty questions\n- delivery questions\n- payment questions\n- compatibility questions\n- troubleshooting questions\n- general store questions\n\nThey may also use:\n\n- short messages\n- incomplete sentences\n- Banglish\n- informal English\n- spelling mistakes\n- mixed Bangla and English\n\nUnderstand the likely intent from the message.\n\nIf the intent is clear, answer directly.\n\nIf the intent is genuinely unclear, ask ONE short clarification question instead of dumping products.\n\n\n========================\nPRODUCT FACTS\n========================\n\nOnly use product information explicitly available in the retrieved product data.\n\nAvailable fields may include:\n\n- name\n- category\n- price\n- color\n- stock\n\nNever invent:\n\n- specifications\n- features\n- compatibility\n- quality\n- durability\n- performance\n- battery life\n- charging speed\n- warranty\n- benefits\n- materials\n- use cases\n\nDo not assume a feature simply because it is common for that product category.\n\nFor example:\n\nDo NOT say:\n\"This charger supports fast charging.\"\n\nunless the retrieved information explicitly says so.\n\nDo NOT say:\n\"This power bank is perfect for travel.\"\n\nunless the retrieved information explicitly supports that claim.\n\n\n========================\nPRICE\n========================\n\nUse the exact retrieved price.\n\nDisplay prices using:\n\n৳\n\nExample:\n\n৳2,400\n\nNever invent:\n\n- discounts\n- offers\n- delivery charges\n- promotional prices\n\n\n========================\nSTOCK\n========================\n\nUse the retrieved stock value.\n\nIf stock is greater than 0:\nThe product is currently in stock.\n\nIf stock is 0:\nSay that the product is currently out of stock.\n\nNever invent or estimate stock.\n\n\n========================\nBUSINESS KNOWLEDGE\n========================\n\nUse retrieved knowledge for:\n\n- returns\n- exchanges\n- warranty\n- delivery\n- payment\n- support\n- store policies\n- other business information\n\nWhen answering a policy question:\n\n- Use the most relevant retrieved knowledge.\n- Do not mix unrelated policies.\n- Do not invent missing policy details.\n- Do not turn incomplete chunks into unsupported conclusions.\n\nIf the retrieved knowledge is insufficient, say so honestly.\n\n\n========================\nPRODUCT + KNOWLEDGE\n========================\n\nSometimes both product information and knowledge are relevant.\n\nIn that case, combine them naturally.\n\nExample:\n\nCustomer:\n\"Can I return these headphones?\"\n\nUse relevant headphone information together with relevant return-policy information.\n\nDo not mention unrelated products or policies.\n\n\n========================\nNO HALLUCINATION\n========================\n\nNever make up information.\n\nIf something is not present in the retrieved information, do not pretend that you know it.\n\nIf you do not have enough information, say:\n\n\"I don't have enough information about that right now.\"\n\nYou may ask the customer for a relevant missing detail when appropriate.\n\n\n========================\nCONVERSATION STYLE\n========================\n\nSound like a real ecommerce customer support representative.\n\nBe:\n\n- friendly\n- natural\n- helpful\n- concise\n- professional\n- conversational\n\nDo NOT sound like:\n\n- a search engine\n- a database\n- a technical AI\n- a documentation page\n\nDo not say:\n\n\"According to the provided context...\"\n\nDo not say:\n\n\"Based on the retrieved information...\"\n\nDo not mention that you are using RAG.\n\nDo not mention embeddings or vector search.\n\n\n========================\nRESPONSE LENGTH\n========================\n\nKeep responses concise.\n\nSimple question:\n1–2 short sentences.\n\nProduct recommendation:\nUsually 1 product, maximum 2 relevant products.\n\nPolicy question:\nGive the relevant policy directly.\n\nComparison:\nOnly compare the products the customer actually asked about.\n\nOnly provide a longer answer when the customer asks for details.\n\n\n========================\nNO INFORMATION DUMP\n========================\n\nThis is extremely important.\n\nNEVER dump all retrieved products.\n\nNEVER mention every search result.\n\nNEVER assume that every retrieved item is relevant.\n\nThe retrieval system is allowed to return weakly related results.\n\nYou must filter them based on the customer's actual intent.\n\n\n========================\nFORMATTING\n========================\n\nThe response will be sent through Instagram DM, Facebook Messenger, WhatsApp, Telegram, or website chat.\n\nUse clean plain text.\n\nDo NOT use Markdown.\n\nDo NOT use:\n\n**\n__\n#\n###\nDo not use Markdown headings.\n\nSimple bullet points are allowed when useful.\n\nExample:\n\nWe have the Xiaomi Mi Power Bank 20000mAh available.\n\nPrice: ৳2,400\nStock: 5\nColor: Black\n\nBut for a simple question, do not unnecessarily use multiple lines.\n\n========================\nEMOJIS\n\nUse emojis only when they naturally improve the message.\n\nUse them sparingly.\n\nDo not put emojis everywhere.\n\n========================\nLANGUAGE\n\nIf the customer writes English, respond in natural English.\n\nIf the customer writes Banglish, respond naturally in Banglish.\n\nIf the customer writes Bangla, respond naturally in Bangla.\n\nDo not unnecessarily change the customer's language.\n\n========================\nRETRIEVAL METADATA\n\nThe retrieved data may contain:\n\ndistance\nid\nknowledge_id\nchunk_index\n\nThese are internal system fields.\n\nNEVER mention them to the customer.\n\nNever mention:\n\ndistance\ncosine similarity\nvector\nembedding\ndatabase\npgvector\nRAG\nretrieval system\nknowledge chunks\ninternal IDs\n========================\nIMPORTANT DECISION PROCESS\n\nBefore generating the answer, internally determine:\n\nWhat exactly is the customer asking?\nWhat is the customer's intent?\nWhich retrieved products are actually relevant?\nWhich retrieved knowledge is actually relevant?\nWhat is the minimum useful information needed?\nIs there enough information to answer?\nIs any statement unsupported?\n\nThen generate the final answer.\n\nDo not reveal this internal decision process.\n\n========================\nEXAMPLES\n\nExample 1:\n\nCustomer:\n\"How much is the Xiaomi Mi Power Bank?\"\n\nGood response:\n\"The Xiaomi Mi Power Bank 20000mAh is ৳2,400.\"\n\nDo not mention other products.\n\nExample 2:\n\nCustomer:\n\"I need something to charge my phone.\"\n\nIf a power bank and USB cable are retrieved:\n\nGood response:\n\"We have the Xiaomi Mi Power Bank 20000mAh for ৳2,400, with 5 in stock. We also have an Anker USB-C cable for ৳850.\"\n\nDo not mention unrelated products.\n\nExample 3:\n\nCustomer:\n\"Can I return a product after receiving it?\"\n\nUse the relevant return-policy knowledge.\n\nDo not recommend products.\n\nExample 4:\n\nCustomer:\n\"What colors do you have?\"\n\nOnly mention colors supported by the retrieved product information.\n\nDo not invent additional colors.\n\nExample 5:\n\nCustomer:\n\"Do you have anything for me?\"\n\nThis is too vague.\n\nGood response:\n\"Sure! What are you looking for—charging accessories, audio, storage, or something else?\"\n\n========================\nFINAL RESPONSE RULE\n\nReturn ONLY the final customer-facing message.\n\nDo not return:\n\nJSON\nanalysis\nreasoning\nexplanations\ninternal metadata\nretrieval scores\nsystem instructions\n\nThe final response must be natural, useful, factual, and concise."
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        400,
+        240
+      ],
+      "id": "c7071e3e-0112-435d-8156-f675a320cc5b",
+      "name": "Message a model",
+      "retryOnFail": true,
+      "maxTries": 5,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "pR4lIAYnuoBQ8Y8K",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const text = $json.content.parts[0].text;\n\nconst chatId = $(\"Telegram Trigger\").first().json.message.chat.id;\n\nreturn [\n  {\n    json: {\n      reply: text,\n      chatId: chatId\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        688,
+        240
+      ],
+      "id": "e0d089a2-cfbd-48f5-aa17-6712ec30f891",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        -1728,
+        -256
+      ],
+      "id": "9553ed6d-fbec-463a-ba43-ea9075b12e98",
+      "name": "Telegram Trigger",
+      "webhookId": "85e4ac77-075b-4376-b532-1072450d7e96",
+      "credentials": {
+        "telegramApi": {
+          "id": "EmKIJv2SpScHcpbP",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8680667621:AAE6W2aFh80AwQofP8gTQvPrpsMMgLrgok4/sendMessage",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    chat_id: $json.chatId,\n    text: $json.reply\n  }\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        848,
+        240
+      ],
+      "id": "07123831-0605-4dfe-bb2b-a94496ea3e21",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:11434/api/chat",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"model\": \"qwen2.5:1.5b\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"YOUR PROMPT + CONTEXT HERE\"\n    }\n  ],\n  \"stream\": false\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -160,
+        -944
+      ],
+      "id": "37317bda-86a2-4ab1-a0cf-19be32462fe3",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "url": "https://api.telegram.org/bot8680667621:AAE6W2aFh80AwQofP8gTQvPrpsMMgLrgok4/getFile",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "file_id",
+              "value": "={{ $json.message.photo[$json.message.photo.length - 1].file_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -672,
+        -944
+      ],
+      "id": "03f2375b-5332-4de5-88ba-2f1068573cdd",
+      "name": "HTTP Request3"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.telegram.org/file/bot8680667621:AAE6W2aFh80AwQofP8gTQvPrpsMMgLrgok4/{{ $json.result.file_path }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -528,
+        -944
+      ],
+      "id": "b95fed3e-a05b-4bde-b9a0-0793f786ef46",
+      "name": "Download Telegram Image"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-3.5-transcribe-live",
+          "mode": "list",
+          "cachedResultName": "models/gemini-3.5-transcribe-live"
+        },
+        "text": "Describe this image briefly. Identify the main product or object visible in the image.",
+        "inputType": "binary",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        -400,
+        -944
+      ],
+      "id": "7f4c6d76-6007-414c-85be-7a5700bb9897",
+      "name": "Analyze an image",
+      "retryOnFail": true,
+      "maxTries": 4,
+      "waitBetweenTries": 4000,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "pR4lIAYnuoBQ8Y8K",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT\n    id,\n    name,\n    description,\n    category,\n    price,\n    color,\n    stock\n   \nFROM products\nWHERE stock > 0\nORDER BY created_at \nLIMIT 1;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.7,
+      "position": [
+        -912,
+        864
+      ],
+      "id": "57c743a1-8fc9-4358-b1b5-78c64fef78cb",
+      "name": "Execute a SQL query2",
+      "credentials": {
+        "postgres": {
+          "id": "9G7J7z1k5XJAV6Gl",
+          "name": "Postgres account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v25.0",
+        "node": "853959064959332",
+        "edge": "feed",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "=message",
+                "value": "={{$json.post}}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        832
+      ],
+      "id": "70a6be62-6587-40e5-b1d8-7c7d869dfd11",
+      "name": "Facebook Graph API",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "eGWoBrvGOCKFbZRG",
+          "name": "Facebook Graph account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "models/gemini-3-flash-preview"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a Facebook content writer for a Bangladeshi e-commerce business.\n\nCreate a natural, SEO-friendly Facebook post for the product below.\n\nIMPORTANT RULES:\n- Use ONLY the information provided in the product data.\n- Do NOT invent specifications, features, warranty, delivery information, discounts, availability, or any other facts.\n- Do not change the product price.\n- Do not claim that a product is \"best\", \"original\", \"premium\", \"fastest\", etc. unless that information is explicitly provided.\n- Mention the price naturally.\n- Mention stock only if it is useful. Do not expose the exact stock number unless necessary.\n- Use relevant keywords naturally. Do not keyword-stuff.\n- Write for a Bangladeshi audience.\n- Keep the post concise and natural.\n- Do not use Markdown formatting.\n- Do not write labels such as \"Product:\", \"Price:\", \"Description:\".\n- Return ONLY valid JSON.\n\nReturn exactly this structure:\n\n{\n  \"caption\": \"Facebook post text here\",\n  \"hashtags\": [\"#...\", \"#...\", \"#...\"],\n  \"cta\": \"Call to action here\"\n}\n\nPRODUCT DATA:\n\nName: {{$json.name}}\nDescription: {{$json.description}}\nCategory: {{$json.category}}\nPrice: {{$json.price}}\nColor: {{$json.color}}\nStock: {{$json.stock}}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        -704,
+        976
+      ],
+      "id": "a7b29cfb-d1b8-4f84-8604-1ae07ec30efc",
+      "name": "Message a model1",
+      "retryOnFail": true,
+      "waitBetweenTries": 4000,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "pR4lIAYnuoBQ8Y8K",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const text = $json.content.parts[0].text;\n\nconst cleanText = text\n  .replace(/```json/g, '')\n  .replace(/```/g, '')\n  .trim();\n\nconst data = JSON.parse(cleanText);\n\nreturn [\n  {\n    json: data\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -320,
+        832
+      ],
+      "id": "72712281-7cea-42ea-87bf-008fa10b820d",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const { caption, hashtags, cta } = $json;\n\nconst post = [\n  caption,\n  '',\n  hashtags.join(' '),\n  '',\n  cta\n].join('\\n');\n\nreturn [\n  {\n    json: {\n      post\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -176,
+        832
+      ],
+      "id": "895f9103-0c52-4e31-9dc6-daf2876aaa7f",
+      "name": "Code in JavaScript3"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-image-1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        -640,
+        736
+      ],
+      "id": "9aea9e9f-cc95-40ce-af0e-ef8049b06ff1",
+      "name": "Generate an image"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.x.ai/v1/images/generations",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_XAI_API_KEY"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"model\": \"grok-imagine-image-2.0\",\n  \"prompt\": \"Create a premium commercial product advertisement poster for a modern technology product. Clean professional composition, realistic product photography, strong visual hierarchy, elegant typography, product-focused layout, high-end advertising quality. Do not force any specific color palette. Use colors that naturally complement the product. Include a clear product name and short promotional text. No unnecessary objects, no people.\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -688,
+        688
+      ],
+      "id": "a6a8538c-456b-4b6f-9f21-185303dd2f77",
+      "name": "HTTP Request4"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "models/gemini-3.1-flash-image-preview"
+        },
+        "prompt": "=Create a premium, professional product advertisement image for a Facebook business page.\n\nUse the provided reference image as inspiration for the overall visual style, composition, product presentation, lighting, hierarchy and premium commercial advertising quality.\n\nIMPORTANT:\nDo NOT copy the reference image exactly.\nDo NOT copy its specific colors.\nDo NOT use a fixed color palette.\n\nInstead, intelligently adapt the visual design to the actual product.\n\nPRODUCT INFORMATION:\n\nProduct Name: {{ $json.name }}\nCategory: {{ $json.category }}\nDescription: {{ $json.description }}\nProduct Color: {{ $json.color }}\nPrice: {{ $json.price }} BDT\n\nDESIGN REQUIREMENTS:\n\n- Make the product the main visual focus.\n- Create a premium commercial advertising composition.\n- Use realistic product photography.\n- Use professional studio lighting, realistic shadows and depth.\n- Choose the background and color palette based on the actual product and category.\n- The design should look different and naturally appropriate for different products.\n- Keep the composition clean and modern.\n- Make it suitable for a Facebook business page.\n- Use attractive visual hierarchy.\n- Leave enough clean space around the product for readable promotional text.\n- Do not overcrowd the composition.\n- Do not add people unless they are genuinely useful for presenting the product.\n- Do not add unrelated objects.\n\nTEXT RULES:\n\nInclude the actual product name prominently.\n\nIf a price is provided, display the exact price:\n{{ $json.price }} BDT\n\nYou may include 2–3 short selling points, but ONLY if they can be directly derived from the provided product description.\n\nDo NOT invent:\n- specifications\n- features\n- discounts\n- warranty\n- availability claims\n- ratings\n- reviews\n- brand claims\n\nAll generated text must be spelled correctly and clearly readable.\n\nDo NOT add hashtags or a long caption inside the image.\n\nVISUAL STYLE:\n\nCreate the final result as a polished professional e-commerce advertisement, similar in quality to a professionally designed product campaign.\n\nThe design should prioritize:\n1. Product visibility\n2. Product name\n3. Important verified information\n4. Price\n5. Clean premium composition\n\nMake the final image visually attractive, realistic and ready to be used as a Facebook product post.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        -496,
+        736
+      ],
+      "id": "0daf8913-3075-476e-a08b-e688d316a85e",
+      "name": "Generate an image1",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "maxTries": 5,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "pR4lIAYnuoBQ8Y8K",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM users\nWHERE platform = 'telegram'\n  AND puser_id = $1\nLIMIT 1;",
+        "options": {
+          "queryReplacement": "{{ String($('Telegram Trigger').item.json.message.chat.id) }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.7,
+      "position": [
+        -1568,
+        -256
+      ],
+      "id": "aec058b4-257e-431c-ac8a-7f049b316df1",
+      "name": "Find User",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "9G7J7z1k5XJAV6Gl",
+          "name": "Postgres account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "bf329c52-9c8c-4b95-94ba-154cb2d1e1e2",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -1424,
+        -256
+      ],
+      "id": "094cdc5e-2690-4afd-b336-0f407fa39ea3",
+      "name": "User Exists?",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO users (\n    platform,\n    puser_id,\n    name,\n    \"username\"\n)\nVALUES (\n    'telegram',\n    '{{ String($('Telegram Trigger').item.json.message.chat.id) }}',\n    '{{ $('Telegram Trigger').item.json.message.from.first_name || '' }}',\n    '{{ $('Telegram Trigger').item.json.message.from.username || '' }}'\n)\nRETURNING *;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.7,
+      "position": [
+        -1312,
+        16
+      ],
+      "id": "7f74613a-2e95-4c45-b927-8d3deed3e647",
+      "name": "Create Users",
+      "credentials": {
+        "postgres": {
+          "id": "9G7J7z1k5XJAV6Gl",
+          "name": "Postgres account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE users\nSET\n    name = '{{ $('Telegram Trigger').item.json.message.from.first_name || '' }}',\n    \"username\" = '{{ $('Telegram Trigger').item.json.message.from.username || '' }}',\n    lseen = NOW(),\n    updated_at = NOW()\nWHERE id = '{{ $json.id }}'\nRETURNING *;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.7,
+      "position": [
+        -1296,
+        -528
+      ],
+      "id": "517ab4a8-6ec5-468a-a6c4-f56e17929cf0",
+      "name": "Update Users",
+      "credentials": {
+        "postgres": {
+          "id": "9G7J7z1k5XJAV6Gl",
+          "name": "Postgres account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO user_massage (\n    \"userid\",\n    role,\n    platform,\n    pmid,\n    text_type,\n    context\n)\nVALUES (\n    '{{ $json.id }}',\n    'user',\n    'telegram',\n    '{{ String($('Telegram Trigger').item.json.message.message_id) }}',\n    'text',\n    '{{ $('Telegram Trigger').item.json.message.text || '' }}'\n)\nRETURNING *;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.7,
+      "position": [
+        -1168,
+        -256
+      ],
+      "id": "3a37c15d-901f-4043-916b-b83e0d7d5b36",
+      "name": "Save User Message",
+      "credentials": {
+        "postgres": {
+          "id": "9G7J7z1k5XJAV6Gl",
+          "name": "Postgres account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT\n    role,\n    context,\n    created_at\nFROM user_massage\nWHERE \"userid\" = '{{ $json.userid }}'\nORDER BY created_at DESC\nLIMIT 10;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.7,
+      "position": [
+        -1040,
+        -256
+      ],
+      "id": "878b965f-d66d-42dc-a979-428261dad7b5",
+      "name": "Get User History",
+      "credentials": {
+        "postgres": {
+          "id": "9G7J7z1k5XJAV6Gl",
+          "name": "Postgres account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const messages = $input.all();\n\nconst conversation = messages\n  .reverse()\n  .map(item => `user: ${item.json.context}`)\n  .join('\\n');\n\nconst question = $('Telegram Trigger').first().json.message?.text ?? '';\n\nreturn [\n  {\n    json: {\n      conversation,\n      question\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -896,
+        -256
+      ],
+      "id": "b406119f-d6d7-42e7-a01e-066dffa65c70",
+      "name": "Code in JavaScript4"
+    },
+    {
+      "parameters": {
+        "jsCode": "const message = ($json.question || \"\").trim().toLowerCase();\n\nconst orderKeywords = [\n  \"order\",\n  \"order dite chai\",\n  \"order dibo\",\n  \"order krte chai\",\n  \"order korbo\",\n  \"অর্ডার\",\n  \"অর্ডার দিতে চাই\",\n  \"অর্ডার দিব\",\n  \"অর্ডার করবো\"\n];\n\nconst hasOrderKeyword = orderKeywords.some(keyword =>\n  message.includes(keyword)\n);\n\nconst hasOrderFields =\n  message.includes(\"name:\") &&\n  message.includes(\"phone:\") &&\n  message.includes(\"address:\") &&\n  message.includes(\"product:\") &&\n  message.includes(\"quantity:\");\n\nlet intent = \"chat\";\n\nif (hasOrderFields) {\n  intent = \"order_details\";\n} else if (hasOrderKeyword) {\n  intent = \"order_request\";\n}\n\nreturn [\n  {\n    json: {\n      intent,\n      message\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -752,
+        -256
+      ],
+      "id": "bdac6f7b-53ce-48f2-a6a8-cc85630ee735",
+      "name": "Order Intent Check"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8680667621:AAE6W2aFh80AwQofP8gTQvPrpsMMgLrgok4/sendMessage",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"chat_id\": \"{{ $('Telegram Trigger').item.json.message.chat.id }}\",\n  \"text\": \"Order করতে নিচের তথ্যগুলো একসাথে পাঠান:\\n\\nName:\\nPhone:\\nAddress:\\nProduct:\\nQuantity:\\nPayment: COD\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -256,
+        -720
+      ],
+      "id": "23a5de94-1955-4c5b-9539-fbfc58a70e71",
+      "name": "Send Order Format"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.intent }}",
+                    "rightValue": "order_request",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "0dd11827-dbf3-43c4-b085-25febf6ed00a"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "a84d1d07-6779-4b80-bf85-b67ace32ecd4",
+                    "leftValue": "={{ $json.intent }}",
+                    "rightValue": "order_details",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        -576,
+        -272
+      ],
+      "id": "5948d874-af09-4af8-897d-7d8a596d24c3",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "jsCode": "const message = $json.message || \"\";\n\nfunction getField(name) {\n  const regex = new RegExp(`^${name}:\\\\s*(.*)$`, \"im\");\n  const match = message.match(regex);\n  return match ? match[1].trim() : \"\";\n}\n\nconst customer_name = getField(\"Name\");\nconst phone = getField(\"Phone\");\nconst address = getField(\"Address\");\nconst product = getField(\"Product\");\nconst quantityText = getField(\"Quantity\");\nconst paymentText = getField(\"Payment\");\n\nconst quantity = Number(quantityText) || 1;\n\nconst payment_method =\n  paymentText.toLowerCase() === \"bkash\"\n    ? \"bkash\"\n    : \"cod\";\n\nreturn [\n  {\n    json: {\n      customer_name,\n      phone,\n      address,\n      product,\n      quantity,\n      payment_method,\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -256,
+        -400
+      ],
+      "id": "5a2b3923-7041-4c2b-912e-1766b335ea64",
+      "name": "Order Parser"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT\n    id,\n    name,\n    category,\n    price,\n    color,\n    stock\nFROM products\nWHERE\n    LOWER(name) LIKE '%' || LOWER($1) || '%'\n    OR LOWER(category) LIKE '%' || LOWER($1) || '%'\nLIMIT 5;",
+        "options": {
+          "queryReplacement": "={{ $json.product }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.7,
+      "position": [
+        16,
+        -544
+      ],
+      "id": "03a02f4d-7c53-4040-984e-ffee5679949a",
+      "name": "Find Product By Text",
+      "credentials": {
+        "postgres": {
+          "id": "9G7J7z1k5XJAV6Gl",
+          "name": "Postgres account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:11434/api/embed",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"embeddinggemma\",\n  \"input\": \"={{ $json.product }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -48,
+        -256
+      ],
+      "id": "3d534adb-5219-4e06-a020-0f9abb4abbaa",
+      "name": "Order Product Embedding"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT\n    id,\n    name,\n    category,\n    price,\n    color,\n    stock,\n    emb <=> $1::vector AS distance\nFROM products\nWHERE emb IS NOT NULL\nORDER BY emb <=> $1::vector\nLIMIT 4;",
+        "options": {
+          "queryReplacement": "={{ JSON.stringify($json.embeddings[0]) }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.7,
+      "position": [
+        96,
+        -256
+      ],
+      "id": "95675456-9aae-4c02-bcc4-c4c0c40ac950",
+      "name": "Vector Product Search।",
+      "credentials": {
+        "postgres": {
+          "id": "9G7J7z1k5XJAV6Gl",
+          "name": "Postgres account 5"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        240,
+        -432
+      ],
+      "id": "768e9370-6cf6-4584-a08c-97d2b1efc59a",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst products = new Map();\n\nfor (const item of items) {\n  const product = item.json;\n\n  // Out of stock product বাদ\n  if (Number(product.stock) <= 0) {\n    continue;\n  }\n\n  if (!products.has(product.id)) {\n    products.set(product.id, {\n      ...product,\n      textMatch: false,\n      vectorDistance: null,\n    });\n  }\n\n  const current = products.get(product.id);\n\n  if (product.distance !== undefined) {\n    current.vectorDistance = product.distance;\n  } else {\n    current.textMatch = true;\n  }\n}\n\nconst candidates = Array.from(products.values());\n\ncandidates.sort((a, b) => {\n  if (a.textMatch !== b.textMatch) {\n    return a.textMatch ? -1 : 1;\n  }\n\n  if (a.vectorDistance === null) return 1;\n  if (b.vectorDistance === null) return -1;\n\n  return a.vectorDistance - b.vectorDistance;\n});\n\nif (candidates.length === 0) {\n  return [\n    {\n      json: {\n        matched: false,\n        reason: \"out_of_stock_or_not_found\"\n      }\n    }\n  ];\n}\n\nreturn [\n  {\n    json: {\n      matched: true,\n      ...candidates[0]\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        -432
+      ],
+      "id": "75f512ca-606d-4e83-8694-3452ec639127",
+      "name": "Select Order Product"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO orders (\n    user_id,\n    customer_name,\n    phone,\n    address,\n    payment_method,\n    total_amount\n)\nVALUES (\n    '{{ $(\"Find User\").first().json.id }}',\n    '{{ $(\"Order Parser\").first().json.customer_name }}',\n    '{{ $(\"Order Parser\").first().json.phone }}',\n    '{{ $(\"Order Parser\").first().json.address }}',\n    '{{ $(\"Order Parser\").first().json.payment_method }}',\n    {{ Number($json.price) * Number($(\"Order Parser\").first().json.quantity) }}\n)\nRETURNING id, total_amount, created_at;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.7,
+      "position": [
+        560,
+        -432
+      ],
+      "id": "be13f4d5-cf38-4009-ae35-3d2e3c618071",
+      "name": "Create Order",
+      "credentials": {
+        "postgres": {
+          "id": "9G7J7z1k5XJAV6Gl",
+          "name": "Postgres account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO order_items (\n    order_id,\n    product_id,\n    quantity,\n    unit_price,\n    subtotal\n)\nVALUES (\n    '{{ $json.id }}',\n    '{{ $(\"Select Order Product\").first().json.id }}',\n    {{ $(\"Order Parser\").first().json.quantity }},\n    {{ $(\"Select Order Product\").first().json.price }},\n    {{ Number($(\"Select Order Product\").first().json.price) * Number($(\"Order Parser\").first().json.quantity) }}\n)\nRETURNING id, order_id, product_id, quantity, unit_price, subtotal;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.7,
+      "position": [
+        736,
+        -432
+      ],
+      "id": "eb3e549b-bfd9-47f7-a877-a101ab6b455f",
+      "name": "Create Order Item",
+      "credentials": {
+        "postgres": {
+          "id": "9G7J7z1k5XJAV6Gl",
+          "name": "Postgres account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/bot8680667621:AAE6W2aFh80AwQofP8gTQvPrpsMMgLrgok4/sendMessage",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"chat_id\": \"{{ $('Telegram Trigger').item.json.message.chat.id }}\",\n  \"text\": \"Order received successfully! ❤️\\n\\nProduct: {{ $('Select Order Product').first().json.name }}\\nQuantity: {{ $('Order Parser').first().json.quantity }}\\nTotal: ৳{{ $('Create Order').first().json.total_amount }}\\n\\nPayment: {{ $('Order Parser').first().json.payment_method === 'cod' ? 'Cash on Delivery' : 'bKash' }}\\n\\nName: {{ $('Order Parser').first().json.customer_name }}\\nPhone: {{ $('Order Parser').first().json.phone }}\\nAddress: {{ $('Order Parser').first().json.address }}\\n\\nYour order has been received.\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1152,
+        -448
+      ],
+      "id": "b3b07d34-e64b-44e0-8427-25ff1378eb67",
+      "name": "Order Confirmation"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE products\nSET\n    stock = stock - {{ $(\"Order Parser\").first().json.quantity }},\n    updated_at = NOW()\nWHERE id = '{{ $(\"Select Order Product\").first().json.id }}'\n  AND stock >= {{ $(\"Order Parser\").first().json.quantity }}\nRETURNING id, name, stock;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.7,
+      "position": [
+        944,
+        -432
+      ],
+      "id": "88af69f7-3024-4032-84c6-e8ede452efc7",
+      "name": "Update Product Stock",
+      "credentials": {
+        "postgres": {
+          "id": "9G7J7z1k5XJAV6Gl",
+          "name": "Postgres account 5"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Execute a SQL query2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        []
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Execute a SQL query",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Execute a SQL query1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute a SQL query": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute a SQL query1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Find User",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        []
+      ]
+    },
+    "HTTP Request3": {
+      "main": [
+        [
+          {
+            "node": "Download Telegram Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Telegram Image": {
+      "main": [
+        [
+          {
+            "node": "Analyze an image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute a SQL query2": {
+      "main": [
+        [
+          {
+            "node": "Message a model1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript3": {
+      "main": [
+        [
+          {
+            "node": "Facebook Graph API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find User": {
+      "main": [
+        [
+          {
+            "node": "User Exists?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "User Exists?": {
+      "main": [
+        [
+          {
+            "node": "Update Users",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create Users",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Users": {
+      "main": [
+        [
+          {
+            "node": "Save User Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Users": {
+      "main": [
+        [
+          {
+            "node": "Save User Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save User Message": {
+      "main": [
+        [
+          {
+            "node": "Get User History",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get User History": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript4": {
+      "main": [
+        [
+          {
+            "node": "Order Intent Check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Order Intent Check": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Send Order Format",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Order Parser",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Order Format": {
+      "main": [
+        []
+      ]
+    },
+    "Order Parser": {
+      "main": [
+        [
+          {
+            "node": "Find Product By Text",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Order Product Embedding",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Order Product Embedding": {
+      "main": [
+        [
+          {
+            "node": "Vector Product Search।",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Product By Text": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vector Product Search।": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Select Order Product",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select Order Product": {
+      "main": [
+        [
+          {
+            "node": "Create Order",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Order": {
+      "main": [
+        [
+          {
+            "node": "Create Order Item",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Order Item": {
+      "main": [
+        [
+          {
+            "node": "Update Product Stock",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Product Stock": {
+      "main": [
+        [
+          {
+            "node": "Order Confirmation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "4a06954f-bacb-494c-bc1e-de480306f305",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ca2cfe4df06aa04eea707ea0a356f78195fe9a26e7d57f41a003260879d54f0d"
+  },
+  "nodeGroups": [],
+  "id": "DobyJaWcNxKzjnlV",
+  "tags": []
+}
