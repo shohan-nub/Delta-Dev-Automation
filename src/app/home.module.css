@@ -3649,6 +3649,163 @@
     transition-duration: .01ms !important;
   }
 }
+/* Final admin-aligned theme overrides. */
+.site {
+  --ink: #172033;
+  --muted: #64748b;
+  --line: #e7eaf0;
+  --violet: #6658d3;
+  --violet-dark: #5143bf;
+  --paper: #f6f7f9;
+  background: #f6f7f9 !important;
+  color: #172033 !important;
+}
+
+.navbar { border-bottom-color: rgb(226 230 237 / 88%) !important; background: rgb(255 255 255 / 91%) !important; }
+.brand, .hero h1, .sectionIntro h2, .architectureIntro h2, .managementIntro h2, .stepsIntro h2, .intelligenceCopy h2, .ctaContent h2, .previewHeading h2, .statCard > strong, .featureItem h3, .archNode b, .workspaceCore > b, .mockHeader h3, .tableRow b, .tableRow strong, .orderSummary b, .flowNode b, .step h3 { color: #172033 !important; }
+.navLinks, .dashboardLink, .heroLead, .sectionIntro > p, .managementIntro > p, .architectureIntro p, .intelligenceCopy > p, .step > p, .ctaContent > p, .trustLine, .featureItem p, .archNode small, .workspaceCore > small, .tableRow, .customerStat span, .customerList small { color: #647087 !important; }
+.navLinks a:hover, .dashboardLink:hover, .footerMain nav a:hover, .textLink, .featureArrow, .featureIcon, .featureNumber, .stepNumber, .mockEyebrow, .customerTotal, .customerListHead span, .progressLabels b { color: #6658d3 !important; }
+.brandMark { border-color: rgb(255 255 255 / 10%) !important; border-radius: 10px !important; background: linear-gradient(145deg, #7769ed, #5346c4) !important; padding: 7px !important; box-shadow: 0 4px 11px rgb(79 70 180 / 17%) !important; }
+.brandMark i { border-radius: 2px !important; }
+.brandMark i:nth-child(2), .brandMark i:nth-child(3) { opacity: .65 !important; }
+.navLinks a:first-child::before, .eyebrowLine, .heroFoot > i, .stepRule i, .progressTrack i { background: #776bd1 !important; }
+.hero { border-bottom-color: #e7eaf0 !important; background: linear-gradient(180deg, #fff 0%, #fafbfc 67%, #f5f6fa 100%) !important; }
+.heroBackdrop { background-image: linear-gradient(rgb(91 105 131 / 3%) 1px, transparent 1px), linear-gradient(90deg, rgb(91 105 131 / 3%) 1px, transparent 1px) !important; background-size: 72px 72px !important; opacity: .58 !important; }
+.heroBackdrop::before { position: absolute !important; top: -25% !important; left: 24% !important; width: 57% !important; height: 62% !important; border-radius: 50% !important; background: radial-gradient(ellipse, rgb(155 143 255 / 13%), rgb(199 194 255 / 7%) 38%, transparent 72%) !important; content: "" !important; filter: blur(28px) !important; animation: ambient-lavender 48s ease-in-out infinite alternate !important; }
+.hero::before { background: linear-gradient(to bottom, #776bd1 0 30px, #e1e5ed 30px 100%) !important; }
+.hero::after { color: #8893a6 !important; }
+.hero h1 span, .sectionIntro h2 span, .architectureIntro h2 span, .stepsIntro h2 span, .intelligenceCopy h2 span, .ctaContent h2 span { background: none !important; color: #6658d3 !important; -webkit-text-fill-color: #6658d3 !important; }
+.eyebrow, .heroEyebrow, .ctaEyebrow, .liveLabel { color: #6658d3 !important; }
+.navCta, .primaryButton, .ctaButton { border-color: #6658d3 !important; border-radius: 9px !important; background: #6658d3 !important; box-shadow: 0 4px 10px rgb(102 88 211 / 18%) !important; }
+.navCta:hover, .primaryButton:hover, .ctaButton:hover { border-color: #5143bf !important; background: #5143bf !important; box-shadow: 0 7px 16px rgb(102 88 211 / 24%) !important; }
+.secondaryButton { border-color: #e1e5ec !important; border-radius: 9px !important; background: #fff !important; color: #475166 !important; }
+.secondaryButton:hover { border-color: #c9cddd !important; background: #fafbfc !important; }
+.trustCheck { border-color: #e3e0ff !important; color: #5548c3 !important; }
+.trustLine > i { background: #dfe3eb !important; }
+.previewGlow { background: rgb(112 98 220 / 12%) !important; }
+.previewFrame { border-color: #e2e6ed !important; border-radius: 12px 12px 0 0 !important; background: #fff !important; box-shadow: 0 18px 48px rgb(19 31 52 / 8%), 0 2px 7px rgb(19 31 52 / 3%) !important; }
+.previewSidebar { border-right-color: rgb(255 255 255 / 7%) !important; background: #111827 !important; }
+.previewBrand, .previewSidebar .sidebarBottom { color: #fff !important; }
+.previewSidebar .brandMark { width: 25px !important; height: 25px !important; border-radius: 9px !important; padding: 6px !important; }
+.sidebarCaption { color: #798396 !important; }
+.sidebarItem { border-radius: 8px !important; color: #aab3c2 !important; }
+.sidebarItem > svg, .navGlyph { color: #9aa6b8 !important; }
+.sidebarActive { background: linear-gradient(90deg, rgb(105 91 222 / 24%), rgb(105 91 222 / 12%)) !important; color: #fff !important; }
+.sidebarActive > svg, .sidebarActive .navGlyph { color: #a99fff !important; }
+.navCount { background: rgb(255 255 255 / 9%) !important; color: #d0d5df !important; }
+.sidebarBottom { border-top-color: rgb(255 255 255 / 10%) !important; }
+.sidebarBottom small { color: #9aa5b7 !important; }
+.avatar, .avatarSmall { border-color: #e3e0ff !important; border-radius: 8px !important; background: #f0eeff !important; color: #5548c3 !important; }
+.previewMain, .previewContent { background: #fff !important; }
+.previewTopbar, .chartCard, .ordersCard, .statCard, .managementCard, .flowPanel { border-color: #e6e9f0 !important; }
+.previewSearch, .dateButton, .statCard, .chartCard, .ordersCard, .managementCard, .flowPanel { background: #fff !important; }
+.previewSearch, .dateButton, .statLabel, .statCard > small, .cardHeading small, .chartLegend, .chartY, .chartX, .breadcrumb, .previewHeading p, .orderRow > span:nth-child(2) small { color: #768195 !important; }
+.liveLabel i, .healthDot { background: #54a77b !important; box-shadow: 0 0 0 3px rgb(84 167 123 / 12%) !important; }
+.statCard > small b { color: #4c9670 !important; }
+.miniBars i { background: linear-gradient(0deg, #8173e0, #d4d0ff) !important; }
+.sparkline path, .chartLine { stroke: #7567d8 !important; }
+.productDots i, .productDots i:nth-child(3n) { background: #8173e0 !important; }
+.productDots i:nth-child(4n) { background: #e4e1ff !important; }
+.customerAvatars i { border-color: #fff !important; background: #f0eeff !important; color: #5548c3 !important; }
+.chartArea { background: repeating-linear-gradient(to bottom, transparent 0, transparent 37px, #e9ecf2 38px, transparent 39px) !important; }
+.chartLegend i { background: #7567d8 !important; }
+.orderRow { border-top-color: #e9ecf2 !important; }
+.orderIcon { background: #f0eeff !important; color: #5548c3 !important; }
+.orderRow > span:nth-child(2) b, .orderRow > strong { color: #334056 !important; }
+.orderStatus { background: #edf5f1 !important; color: #4b8066 !important; }
+.orderPending, .statusLow, .processingTag { background: #f8f4e9 !important; color: #96763e !important; }
+.floatInventory, .floatAutomation, .sceneOrder, .sceneCatalog { border-color: #e3e6ef !important; background: rgb(255 255 255 / 96%) !important; box-shadow: 0 10px 25px rgb(19 31 52 / 9%) !important; }
+.floatIcon, .nodeIcon, .coreMark, .flowNode > span { background: #f0eeff !important; color: #6658d3 !important; }
+.floatInventory b, .floatAutomation b, .sceneOrder b, .sceneKnowledge b { color: #253149 !important; }
+.floatInventory small, .floatAutomation small, .sceneOrder span, .sceneCatalog span, .sceneKnowledge span { color: #768195 !important; }
+.flowPulse { background: #7567d8 !important; box-shadow: 0 0 0 3px rgb(117 103 216 / 13%) !important; }
+.sceneOrder { border-left-color: #7567d8 !important; }
+.sceneOrder i, .sceneKnowledge > i { background: #54a77b !important; }
+.sceneCatalog { border-top-color: #dce1ea !important; }
+.sceneKnowledge { border-bottom-color: #dce1ea !important; }
+.heroFoot { border-top-color: #e2e6ed !important; color: #768195 !important; }
+.featuresSection, .managementSection, .stepsSection { background: #fff !important; }
+.featureGrid { border-color: #e6e9f0 !important; }
+.featureItem { border-color: #e6e9f0 !important; background: #fff !important; }
+.featureItem:hover { border-color: #d5d1f4 !important; background: #fafaff !important; box-shadow: 0 8px 22px rgb(19 31 52 / 5%) !important; }
+.featureItem::before { background: radial-gradient(ellipse at 105% 110%, rgb(117 103 218 / 9%), transparent 53%), linear-gradient(115deg, transparent 35%, rgb(255 255 255 / 0%) 48%, rgb(255 255 255 / 78%) 50%, transparent 53%) !important; }
+.featureItem:first-child::after { border-top-color: #dfe3eb !important; background: linear-gradient(164deg, transparent 46%, rgb(102 88 211 / 70%) 47% 48%, transparent 49%), repeating-linear-gradient(90deg, transparent 0 22px, rgb(102 88 211 / 8%) 22px 23px) !important; }
+.architectureSection, .intelligenceSection { border-color: #e4e8ef !important; background-color: #f6f7f9 !important; }
+.architectureSection { background-image: linear-gradient(90deg, rgb(23 32 51 / 2.5%) 1px, transparent 1px) !important; animation: architecture-light 48s ease-in-out infinite alternate !important; }
+.connectionSvg path { stroke: #cbd2df !important; }
+.connectionSvg .connectionPulse { stroke: #8173e0 !important; filter: none !important; }
+.archNode { border-color: #e1e5ec !important; background: #fff !important; box-shadow: 0 2px 6px rgb(19 31 52 / 3%), 0 8px 18px rgb(19 31 52 / 3%) !important; }
+.archNode:hover { border-color: #c9c3fa !important; box-shadow: 0 5px 14px rgb(19 31 52 / 7%) !important; }
+.nodeIcon { background: #f0eeff !important; color: #6658d3 !important; }
+.workspaceCore { border-color: #c9c3fa !important; background: #fff !important; box-shadow: 0 0 0 9px rgb(246 247 249 / 84%), 0 0 0 10px #e1e5ec, 0 12px 28px rgb(19 31 52 / 7%) !important; }
+.coreMark { border-color: #e3e0ff !important; background: #f0eeff !important; }
+.coreLabel { color: #776bd1 !important; }
+.archBottom i { background: #776bd1 !important; box-shadow: none !important; }
+.mockEyebrow { color: #776bd1 !important; }
+.mockAction, .mockSearch, .filterButton, .iconButton, .orderSummary, .fulfillment, .customerChart, .stepMicro > span { border-color: #e1e5ec !important; background: #fff !important; }
+.mockAction, .packageGlyph, .smallOrderGlyph, .fulfillmentTag, .stepMicro svg { color: #5548c3 !important; }
+.tableHead, .tableRow, .customerList > div:not(.customerListHead), .fulfillmentSecondary, .orderSummary > div + div { border-color: #e9ecf2 !important; }
+.tableStatus { background: #edf5f1 !important; color: #4b8066 !important; }
+.progressTrack { background: #e9ecf2 !important; }
+.progressTrack i { background: linear-gradient(90deg, #6658d3, #9b8fff) !important; }
+.customerBars i { background: #d8d4ff !important; }
+.customerBars i:nth-child(4n) { background: #8173e0 !important; }
+.avatarLilac { background: #f0eeff !important; color: #5548c3 !important; }
+.avatarSand { background: #eef2fa !important; color: #53617b !important; }
+.flowPanel { box-shadow: 0 2px 6px rgb(19 31 52 / 2%), 0 12px 30px rgb(19 31 52 / 2%) !important; }
+.flowHead, .flowFoot { border-color: #e9ecf2 !important; color: #768195 !important; }
+.flowHead i { color: #4b8066 !important; }
+.flowNode { border-color: #e6e9f0 !important; background: #fff !important; }
+.flowNode:hover { border-color: #d5d1f4 !important; background: #fafaff !important; }
+.flowNode > span, .flowKnowledge > span, .flowAi > span, .flowAuto > span, .flowCustomer > span { background: #f0eeff !important; color: #6658d3 !important; }
+.flowConnector { background: #d7dbea !important; box-shadow: none !important; }
+.flowConnector i { background: #8173e0 !important; box-shadow: 0 0 0 3px rgb(129 115 224 / 12%) !important; }
+.stepRule { background: #e1e5ec !important; }
+.stepMicro > span { color: #536078 !important; }
+.stepDone { border-color: #dcebe2 !important; background: #f3f8f5 !important; color: #4b8066 !important; }
+.stepFlow { border-color: #e3e0ff !important; background: #f0eeff !important; color: #5548c3 !important; }
+.finalCta { border-color: #dfe3eb !important; background: #eef0f8 !important; }
+.ctaGrid { background-image: linear-gradient(rgb(72 85 114 / 4%) 1px, transparent 1px), linear-gradient(90deg, rgb(72 85 114 / 4%) 1px, transparent 1px) !important; }
+.ctaOrb { border-color: rgb(102 88 211 / 17%) !important; box-shadow: 0 0 0 42px rgb(102 88 211 / 2%), 0 0 0 84px rgb(102 88 211 / 1%) !important; }
+.ctaFoot { color: #778297 !important; }
+.footer { border-top-color: #e4e8ef !important; background: #fff !important; }
+.footer::before { background: linear-gradient(90deg, transparent, rgb(102 88 211 / 22%), transparent) !important; }
+.footerMain { border-bottom-color: #e7eaf0 !important; }
+.footerMain > p, .footerMain nav, .footerBottom { color: #647087 !important; }
+.footerMain nav svg, .footerBottom i { color: #6658d3 !important; }
+.navCta, .primaryButton, .ctaButton { position: relative; overflow: hidden; }
+.navCta::after, .primaryButton::after, .ctaButton::after { position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 22%) 50%, transparent 70%); content: ""; opacity: 0; transform: translateX(-110%); transition: transform 650ms ease, opacity 250ms ease; }
+.navCta:hover::after, .primaryButton:hover::after, .ctaButton:hover::after { opacity: 1; transform: translateX(110%); }
+.floatInventory { animation: hero-layer-one 15s ease-in-out infinite !important; }
+.floatAutomation { animation: hero-layer-two 19s ease-in-out infinite !important; }
+.sceneOrder { animation: hero-layer-three 17s ease-in-out infinite !important; }
+.sceneCatalog { animation: hero-layer-two 21s ease-in-out infinite !important; }
+.liveLabel i, .healthDot, .flowHead i b, .flowPulse, .sceneOrder i, .sceneKnowledge > i { animation: status-breathe 3.8s ease-in-out infinite !important; }
+
+@keyframes ambient-lavender {
+  0% { transform: translate3d(-7%, -3%, 0) scale(.95); opacity: .62; }
+  50% { transform: translate3d(5%, 4%, 0) scale(1.04); opacity: .9; }
+  100% { transform: translate3d(12%, -2%, 0) scale(1); opacity: .7; }
+}
+@keyframes hero-layer-one { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes hero-layer-two { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+@keyframes hero-layer-three { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+@keyframes architecture-light { 0% { background-position: 42% 50%; } 100% { background-position: 58% 50%; } }
+
+@media (max-width: 760px) {
+  .heroBackdrop::before { top: -7% !important; left: 1% !important; width: 98% !important; height: 45% !important; filter: blur(23px) !important; animation-duration: 56s !important; }
+  .floatInventory { animation: hero-layer-one-mobile 24s ease-in-out infinite !important; }
+  .floatAutomation, .sceneCatalog { animation: hero-layer-two-mobile 24s ease-in-out infinite !important; }
+  .architectureSection { animation-duration: 56s !important; }
+}
+@keyframes hero-layer-one-mobile { 0%, 100% { transform: scale(.83) translateY(0); } 50% { transform: scale(.83) translateY(-5px); } }
+@keyframes hero-layer-two-mobile { 0%, 100% { transform: scale(.83) translateY(0); } 50% { transform: scale(.83) translateY(4px); } }
+@media (max-width: 430px) {
+  @keyframes hero-layer-two-mobile { 0%, 100% { transform: scale(.82) translateY(0); } 50% { transform: scale(.82) translateY(4px); } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site *, .site *::before, .site *::after { animation: none !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
 
 /* Editorial identity: warm paper, charcoal type and one measured burgundy signal. */
 .site {
@@ -5812,6 +5969,1127 @@
   }
 }
 
+/* Align the public surface with the Studio admin workspace. */
+.site {
+  --ink: #172033;
+  --muted: #64748b;
+  --line: #e7eaf0;
+  --violet: #6658d3;
+  --violet-dark: #5143bf;
+  --paper: #f6f7f9;
+  background: #f6f7f9;
+  color: #172033;
+}
+
+.site a:focus-visible,
+.site button:focus-visible {
+  outline-color: #7163dc;
+  box-shadow: 0 0 0 3px rgb(112 98 220 / 16%);
+}
+
+.navbar {
+  border-bottom-color: rgb(226 230 237 / 88%);
+  background: rgb(255 255 255 / 91%);
+}
+
+.brand {
+  color: #172033;
+}
+
+.brandMark {
+  border-color: rgb(255 255 255 / 10%);
+  border-radius: 10px;
+  background: linear-gradient(145deg, #7769ed, #5346c4);
+  padding: 7px;
+  box-shadow: 0 4px 11px rgb(79 70 180 / 17%);
+}
+
+.brandMark i {
+  border-radius: 2px;
+}
+
+.brandMark i:nth-child(2),
+.brandMark i:nth-child(3) {
+  opacity: .65;
+}
+
+.navLinks,
+.dashboardLink {
+  color: #647087;
+}
+
+.navLinks a:first-child::before {
+  background: #9b8fff;
+}
+
+.navLinks a:hover,
+.dashboardLink:hover {
+  color: #5143bf;
+}
+
+.navCta,
+.primaryButton,
+.ctaButton {
+  border-color: #6658d3;
+  border-radius: 9px;
+  background: #6658d3;
+  box-shadow: 0 4px 10px rgb(102 88 211 / 18%);
+}
+
+.navCta:hover,
+.primaryButton:hover,
+.ctaButton:hover {
+  border-color: #5143bf;
+  background: #5143bf;
+  box-shadow: 0 7px 16px rgb(102 88 211 / 24%);
+}
+
+.secondaryButton {
+  border-color: #e1e5ec;
+  border-radius: 9px;
+  background: #fff;
+  color: #475166;
+}
+
+.secondaryButton:hover {
+  border-color: #c9cddd;
+  background: #fafbfc;
+}
+
+.secondaryButton span,
+.eyebrowLine {
+  color: #6658d3;
+}
+
+.eyebrowLine,
+.heroFoot > i {
+  background: #776bd1;
+}
+
+.hero {
+  border-bottom-color: #e7eaf0;
+  background: linear-gradient(180deg, #fff 0%, #fafbfc 67%, #f5f6fa 100%);
+}
+
+.heroBackdrop {
+  background-image:
+    linear-gradient(rgb(91 105 131 / 3%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(91 105 131 / 3%) 1px, transparent 1px);
+  background-size: 72px 72px;
+  opacity: .58;
+}
+
+.heroBackdrop::before {
+  position: absolute;
+  top: -25%;
+  left: 24%;
+  width: 57%;
+  height: 62%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgb(155 143 255 / 13%), rgb(199 194 255 / 7%) 38%, transparent 72%);
+  content: "";
+  filter: blur(28px);
+  animation: ambient-lavender 48s ease-in-out infinite alternate;
+}
+
+.hero::before {
+  background: linear-gradient(to bottom, #776bd1 0 30px, #e1e5ed 30px 100%);
+}
+
+.hero::after {
+  color: #8893a6;
+}
+
+.hero h1,
+.sectionIntro h2,
+.architectureIntro h2,
+.managementIntro h2,
+.stepsIntro h2,
+.intelligenceCopy h2,
+.ctaContent h2 {
+  color: #172033;
+}
+
+.hero h1 span,
+.sectionIntro h2 span,
+.architectureIntro h2 span,
+.stepsIntro h2 span,
+.intelligenceCopy h2 span,
+.ctaContent h2 span {
+  color: #6658d3;
+}
+
+.heroEyebrow,
+.eyebrow,
+.heroFoot > i {
+  color: #6658d3;
+}
+
+.heroLead,
+.sectionIntro > p,
+.managementIntro > p,
+.architectureIntro p,
+.intelligenceCopy > p,
+.step > p,
+.ctaContent > p {
+  color: #647087;
+}
+
+.trustLine {
+  color: #647087;
+}
+
+.trustCheck {
+  border-color: #e3e0ff;
+  color: #5548c3;
+}
+
+.trustLine > i {
+  background: #dfe3eb;
+}
+
+.trustLine > span:last-child {
+  color: #8590a2;
+}
+
+.previewGlow {
+  background: rgb(112 98 220 / 12%);
+}
+
+.previewFrame {
+  border-color: #e2e6ed;
+  border-radius: 12px 12px 0 0;
+  background: #fff;
+  box-shadow: 0 18px 48px rgb(19 31 52 / 8%), 0 2px 7px rgb(19 31 52 / 3%);
+}
+
+.previewSidebar {
+  border-right-color: rgb(255 255 255 / 7%);
+  background: #111827;
+}
+
+.previewBrand,
+.previewSidebar .sidebarBottom {
+  color: #fff;
+}
+
+.previewSidebar .brandMark {
+  width: 25px;
+  height: 25px;
+  border-radius: 9px;
+  padding: 6px;
+  box-shadow: 0 4px 11px rgb(79 70 180 / 22%);
+}
+
+.sidebarCaption {
+  color: #798396;
+}
+
+.sidebarItem {
+  border-radius: 8px;
+  color: #aab3c2;
+}
+
+.sidebarItem > svg,
+.navGlyph {
+  color: #9aa6b8;
+}
+
+.sidebarActive {
+  background: linear-gradient(90deg, rgb(105 91 222 / 24%), rgb(105 91 222 / 12%));
+  color: #fff;
+}
+
+.sidebarActive > svg,
+.sidebarActive .navGlyph {
+  color: #a99fff;
+}
+
+.navCount {
+  border-radius: 5px;
+  background: rgb(255 255 255 / 9%);
+  color: #d0d5df;
+}
+
+.sidebarBottom {
+  border-top-color: rgb(255 255 255 / 10%);
+}
+
+.sidebarBottom small {
+  color: #9aa5b7;
+}
+
+.avatar,
+.avatarSmall {
+  border: 1px solid #e3e0ff;
+  border-radius: 8px;
+  background: #f0eeff;
+  color: #5548c3;
+}
+
+.previewMain,
+.previewContent,
+.previewFrame {
+  background-color: #fff;
+}
+
+.previewTopbar {
+  border-bottom-color: #e6e9f0;
+}
+
+.breadcrumb,
+.previewHeading p {
+  color: #768195;
+}
+
+.previewSearch,
+.dateButton {
+  border-color: #e1e5ec;
+  border-radius: 7px;
+  background: #fff;
+  color: #647087;
+}
+
+.liveLabel {
+  color: #776bd1;
+}
+
+.liveLabel i,
+.healthDot {
+  background: #54a77b;
+  box-shadow: 0 0 0 3px rgb(84 167 123 / 12%);
+}
+
+.previewHeading h2,
+.statCard > strong {
+  color: #172033;
+}
+
+.statCard,
+.chartCard,
+.ordersCard {
+  border-color: #e6e9f0;
+  border-radius: 9px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(19 31 52 / 2%);
+}
+
+.statLabel,
+.statCard > small,
+.cardHeading small,
+.chartLegend,
+.chartY,
+.chartX {
+  color: #768195;
+}
+
+.statCard > small b {
+  color: #4c9670;
+}
+
+.miniBars i {
+  border-radius: 2px 2px 0 0;
+  background: linear-gradient(0deg, #8173e0, #d4d0ff);
+}
+
+.sparkline path,
+.chartLine {
+  stroke: #7567d8;
+}
+
+.productDots i {
+  background: #c9c3fa;
+}
+
+.productDots i:nth-child(3n) {
+  background: #8173e0;
+}
+
+.productDots i:nth-child(4n) {
+  background: #e4e1ff;
+}
+
+.customerAvatars i {
+  border-color: #fff;
+  background: #f0eeff;
+  color: #5548c3;
+}
+
+.customerAvatars i:nth-child(2) {
+  background: #eef2fa;
+  color: #53617b;
+}
+
+.customerAvatars i:nth-child(3) {
+  background: #edf5f1;
+  color: #4b8066;
+}
+
+.customerAvatars i:nth-child(4) {
+  background: #f3f4f7;
+  color: #68758a;
+}
+
+.customerAvatars span {
+  color: #768195;
+}
+
+.chartArea {
+  background: repeating-linear-gradient(to bottom, transparent 0, transparent 37px, #e9ecf2 38px, transparent 39px);
+}
+
+.chartLegend i {
+  background: #7567d8;
+}
+
+.chartLine {
+  filter: drop-shadow(0 0 3px rgb(117 103 216 / 16%));
+}
+
+.orderRow {
+  border-top-color: #e9ecf2;
+}
+
+.orderIcon {
+  border-radius: 6px;
+  background: #f0eeff;
+  color: #5548c3;
+}
+
+.orderRow > span:nth-child(2) b,
+.orderRow > strong {
+  color: #334056;
+}
+
+.orderRow > span:nth-child(2) small {
+  color: #768195;
+}
+
+.orderStatus {
+  border-radius: 4px;
+  background: #edf5f1;
+  color: #4b8066;
+}
+
+.orderPending {
+  background: #f8f4e9;
+  color: #96763e;
+}
+
+.floatInventory,
+.floatAutomation {
+  border-color: #e3e6ef;
+  border-radius: 9px;
+  background: rgb(255 255 255 / 96%);
+  box-shadow: 0 10px 25px rgb(19 31 52 / 9%);
+}
+
+.floatIcon,
+.nodeIcon,
+.coreMark,
+.flowNode > span {
+  background: #f0eeff;
+  color: #6658d3;
+}
+
+.floatInventory b,
+.floatAutomation b {
+  color: #253149;
+}
+
+.floatInventory small,
+.floatAutomation small {
+  color: #768195;
+}
+
+.flowPulse {
+  background: #7567d8;
+  box-shadow: 0 0 0 3px rgb(117 103 216 / 13%);
+}
+
+.sceneOrder,
+.sceneCatalog,
+.sceneKnowledge,
+.sceneCustomers {
+  color: #647087;
+}
+
+.sceneOrder {
+  border-left-color: #7567d8;
+  background: rgb(255 255 255 / 96%);
+  box-shadow: 0 6px 18px rgb(19 31 52 / 5%);
+}
+
+.sceneOrder span,
+.sceneCatalog span,
+.sceneKnowledge span {
+  color: #7a879b;
+}
+
+.sceneOrder b,
+.sceneKnowledge b {
+  color: #253149;
+}
+
+.sceneOrder i,
+.sceneKnowledge > i {
+  background: #54a77b;
+}
+
+.sceneCatalog {
+  border-top-color: #dce1ea;
+  background: #fff;
+  box-shadow: 0 6px 18px rgb(19 31 52 / 5%);
+}
+
+.sceneCatalog b,
+.sceneCustomers b {
+  color: #6658d3;
+}
+
+.sceneKnowledge {
+  border-bottom-color: #dce1ea;
+}
+
+.sceneCustomers {
+  color: #768195;
+}
+
+.heroFoot {
+  border-top-color: #e2e6ed;
+  color: #768195;
+}
+
+.featuresSection,
+.managementSection,
+.stepsSection {
+  background: #fff;
+}
+
+.featuresSection {
+  border-bottom-color: #e7eaf0;
+}
+
+.featureGrid {
+  border-color: #e6e9f0;
+}
+
+.featureItem {
+  border-color: #e6e9f0;
+  border-radius: 0;
+  background: #fff;
+}
+
+.featureItem:hover {
+  border-color: #d5d1f4;
+  background: #fafaff;
+  box-shadow: 0 8px 22px rgb(19 31 52 / 5%);
+}
+
+.featureItem::before {
+  background:
+    radial-gradient(ellipse at 105% 110%, rgb(117 103 218 / 9%), transparent 53%),
+    linear-gradient(115deg, transparent 35%, rgb(255 255 255 / 0%) 48%, rgb(255 255 255 / 78%) 50%, transparent 53%);
+}
+
+.featureIcon {
+  color: #6658d3;
+}
+
+.featureItem:hover .featureIcon,
+.featureItem:focus-visible .featureIcon {
+  color: #5143bf;
+  box-shadow: 0 4px 12px rgb(102 88 211 / 11%);
+}
+
+.featureNumber {
+  color: #8a95a7;
+}
+
+.featureItem h3 {
+  color: #172033;
+}
+
+.featureItem p {
+  color: #647087;
+}
+
+.featureArrow {
+  color: #6658d3;
+}
+
+.featureItem:first-child::after {
+  border-top-color: #dfe3eb;
+  background:
+    linear-gradient(164deg, transparent 46%, rgb(102 88 211 / 70%) 47% 48%, transparent 49%),
+    repeating-linear-gradient(90deg, transparent 0 22px, rgb(102 88 211 / 8%) 22px 23px);
+}
+
+.architectureSection {
+  border-color: #e4e8ef;
+  background:
+    linear-gradient(90deg, rgb(23 32 51 / 2.5%) 1px, transparent 1px),
+    #f6f7f9;
+  animation: architecture-light 48s ease-in-out infinite alternate;
+}
+
+.architectureIntro p {
+  color: #647087;
+}
+
+.connectionSvg path {
+  stroke: #cbd2df;
+}
+
+.connectionSvg .connectionPulse {
+  stroke: #8173e0;
+  filter: none;
+}
+
+.archNode {
+  border-color: #e1e5ec;
+  border-radius: 9px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgb(19 31 52 / 3%), 0 8px 18px rgb(19 31 52 / 3%);
+}
+
+.archNode:hover {
+  border-color: #c9c3fa;
+  box-shadow: 0 5px 14px rgb(19 31 52 / 7%);
+}
+
+.archNode b,
+.workspaceCore > b {
+  color: #253149;
+}
+
+.archNode small,
+.workspaceCore > small {
+  color: #768195;
+}
+
+.nodeIcon {
+  border-radius: 7px;
+  background: #f0eeff;
+  color: #6658d3;
+}
+
+.workspaceCore {
+  border-color: #c9c3fa;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 0 0 9px rgb(246 247 249 / 84%), 0 0 0 10px #e1e5ec, 0 12px 28px rgb(19 31 52 / 7%);
+}
+
+.coreMark {
+  border-color: #e3e0ff;
+  border-radius: 10px;
+  background: #f0eeff;
+}
+
+.coreMark .brandMark {
+  border-radius: 8px;
+}
+
+.coreLabel {
+  color: #776bd1;
+}
+
+.archBottom {
+  color: #647087;
+}
+
+.archBottom i {
+  border-radius: 50%;
+  background: #776bd1;
+}
+
+.managementCard {
+  border-color: #e6e9f0;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgb(19 31 52 / 2%), 0 12px 30px rgb(19 31 52 / 2%);
+}
+
+.managementCard:hover {
+  border-color: #d5d1f4;
+  box-shadow: 0 7px 18px rgb(19 31 52 / 6%);
+}
+
+.mockEyebrow {
+  color: #776bd1;
+}
+
+.mockHeader h3 {
+  color: #172033;
+}
+
+.mockAction,
+.mockSearch,
+.filterButton,
+.iconButton,
+.orderSummary,
+.fulfillment,
+.customerChart {
+  border-color: #e1e5ec;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.mockAction {
+  color: #5548c3;
+}
+
+.tableHead,
+.tableRow,
+.customerList > div:not(.customerListHead),
+.fulfillmentSecondary {
+  border-color: #e9ecf2;
+}
+
+.tableHead,
+.customerListHead {
+  color: #7b879a;
+}
+
+.tableRow,
+.customerStat span,
+.customerList small {
+  color: #647087;
+}
+
+.tableRow b,
+.tableRow strong,
+.orderSummary b {
+  color: #253149;
+}
+
+.tableRow:hover {
+  background: #f8f8fc;
+}
+
+.tableStatus {
+  border-radius: 4px;
+  background: #edf5f1;
+  color: #4b8066;
+}
+
+.statusLow,
+.processingTag {
+  background: #f8f4e9;
+  color: #96763e;
+}
+
+.orderSummary > div + div {
+  border-left-color: #e9ecf2;
+}
+
+.packageGlyph,
+.smallOrderGlyph,
+.fulfillmentTag {
+  border-radius: 7px;
+  background: #f0eeff;
+  color: #5548c3;
+}
+
+.progressTrack {
+  background: #e9ecf2;
+}
+
+.progressTrack i {
+  background: linear-gradient(90deg, #6658d3, #9b8fff);
+}
+
+.progressLabels {
+  color: #768195;
+}
+
+.progressLabels b,
+.customerTotal,
+.customerListHead span {
+  color: #5548c3;
+}
+
+.customerBars i {
+  background: #d8d4ff;
+}
+
+.customerBars i:nth-child(4n) {
+  background: #8173e0;
+}
+
+.personAvatar {
+  color: #5548c3;
+}
+
+.avatarLilac {
+  background: #f0eeff;
+}
+
+.avatarSand {
+  background: #eef2fa;
+  color: #53617b;
+}
+
+.intelligenceSection {
+  border-color: #e4e8ef;
+  background: #f6f7f9;
+}
+
+.intelligenceCopy h2 span {
+  color: #6658d3;
+}
+
+.textLink {
+  color: #5548c3 !important;
+}
+
+.flowPanel {
+  border-color: #e6e9f0;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgb(19 31 52 / 2%), 0 12px 30px rgb(19 31 52 / 2%);
+}
+
+.flowPanel::before {
+  display: none;
+}
+
+.flowHead,
+.flowFoot {
+  border-color: #e9ecf2;
+  color: #768195;
+}
+
+.flowHead i {
+  color: #4b8066;
+}
+
+.flowNode {
+  border-color: #e6e9f0;
+  border-radius: 7px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgb(19 31 52 / 2%);
+}
+
+.flowNode:hover {
+  border-color: #d5d1f4;
+  background: #fafaff;
+  box-shadow: 0 4px 12px rgb(19 31 52 / 5%);
+}
+
+.flowNode > span,
+.flowKnowledge > span,
+.flowAi > span,
+.flowAuto > span,
+.flowCustomer > span {
+  border-radius: 7px;
+  background: #f0eeff;
+  color: #6658d3;
+}
+
+.flowNode b {
+  color: #253149;
+}
+
+.flowNode small {
+  color: #768195;
+}
+
+.flowConnector {
+  background: #d7dbea;
+  box-shadow: none;
+}
+
+.flowConnector i {
+  background: #8173e0;
+  box-shadow: 0 0 0 3px rgb(129 115 224 / 12%);
+}
+
+.flowFoot i {
+  border-color: #8173e0;
+}
+
+.stepNumber {
+  color: #6658d3;
+}
+
+.stepRule {
+  background: #e1e5ec;
+}
+
+.stepRule i {
+  background: linear-gradient(90deg, #6658d3, #9b8fff);
+}
+
+.step h3 {
+  color: #172033;
+}
+
+.stepMicro > span {
+  border-color: #e1e5ec;
+  border-radius: 7px;
+  background: #fff;
+  color: #536078;
+}
+
+.stepMicro svg {
+  color: #6658d3;
+}
+
+.stepDone {
+  border-color: #dcebe2 !important;
+  background: #f3f8f5 !important;
+  color: #4b8066 !important;
+}
+
+.stepDone svg {
+  color: #4b8066;
+}
+
+.stepFlow {
+  border-color: #e3e0ff !important;
+  background: #f0eeff !important;
+  color: #5548c3 !important;
+}
+
+.stepFlow i {
+  background: #7567d8;
+  box-shadow: 0 0 0 3px rgb(117 103 216 / 12%);
+}
+
+.finalCta {
+  border-color: #dfe3eb;
+  background: #eef0f8;
+}
+
+.ctaGrid {
+  background-image:
+    linear-gradient(rgb(72 85 114 / 4%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(72 85 114 / 4%) 1px, transparent 1px);
+}
+
+.ctaOrb {
+  border-color: rgb(102 88 211 / 17%);
+  box-shadow: 0 0 0 42px rgb(102 88 211 / 2%), 0 0 0 84px rgb(102 88 211 / 1%);
+}
+
+.ctaEyebrow {
+  color: #776bd1;
+}
+
+.ctaEyebrow i {
+  background: #776bd1;
+  box-shadow: 0 0 0 4px rgb(119 107 209 / 10%);
+}
+
+.ctaButton {
+  border-color: #6658d3;
+  background: #6658d3;
+}
+
+.ctaButton:hover {
+  background: #5143bf;
+}
+
+.ctaFoot {
+  color: #778297;
+}
+
+.ctaFoot i {
+  background: #aab2c2;
+}
+
+.footer {
+  border-top-color: #e4e8ef;
+  background: #fff;
+}
+
+.footer::before {
+  background: linear-gradient(90deg, transparent, rgb(102 88 211 / 22%), transparent);
+}
+
+.footerMain {
+  border-bottom-color: #e7eaf0;
+}
+
+.footerMain > p,
+.footerMain nav,
+.footerBottom {
+  color: #647087;
+}
+
+.footerMain nav a:hover,
+.footerMain nav svg,
+.footerBottom i {
+  color: #6658d3;
+}
+
+.footerBottom i {
+  background: #6658d3;
+}
+
+.navbar a,
+.navCta,
+.primaryButton,
+.secondaryButton,
+.ctaButton,
+.featureItem,
+.managementCard,
+.archNode,
+.statCard,
+.flowNode,
+.featureIcon {
+  transition-duration: 220ms;
+}
+
+.navCta,
+.primaryButton,
+.ctaButton {
+  position: relative;
+  overflow: hidden;
+}
+
+.navCta::after,
+.primaryButton::after,
+.ctaButton::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 22%) 50%, transparent 70%);
+  content: "";
+  opacity: 0;
+  transform: translateX(-110%);
+  transition: transform 650ms ease, opacity 250ms ease;
+}
+
+.navCta:hover::after,
+.primaryButton:hover::after,
+.ctaButton:hover::after {
+  opacity: 1;
+  transform: translateX(110%);
+}
+
+.navCta:active,
+.primaryButton:active,
+.secondaryButton:active,
+.ctaButton:active {
+  transform: translateY(1px) scale(.99);
+}
+
+.floatInventory {
+  animation: hero-layer-one 15s ease-in-out infinite;
+}
+
+.floatAutomation {
+  animation: hero-layer-two 19s ease-in-out infinite;
+}
+
+.sceneOrder {
+  animation: hero-layer-three 17s ease-in-out infinite;
+}
+
+.sceneCatalog {
+  animation: hero-layer-two 21s ease-in-out infinite;
+}
+
+.liveLabel i,
+.healthDot,
+.flowHead i b,
+.flowPulse,
+.sceneOrder i,
+.sceneKnowledge > i {
+  animation: status-breathe 3.8s ease-in-out infinite;
+}
+
+.architectureSection {
+  background-size: 100% 100%;
+}
+
+@keyframes ambient-lavender {
+  0% { transform: translate3d(-7%, -3%, 0) scale(.95); opacity: .62; }
+  50% { transform: translate3d(5%, 4%, 0) scale(1.04); opacity: .9; }
+  100% { transform: translate3d(12%, -2%, 0) scale(1); opacity: .7; }
+}
+
+@keyframes hero-layer-one {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes hero-layer-two {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+@keyframes hero-layer-three {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes architecture-light {
+  0% { background-position: 42% 50%; }
+  100% { background-position: 58% 50%; }
+}
+
+@media (max-width: 760px) {
+  .heroBackdrop::before {
+    top: -7%;
+    left: 1%;
+    width: 98%;
+    height: 45%;
+    filter: blur(23px);
+    animation-duration: 56s;
+  }
+
+  .floatInventory,
+  .floatAutomation {
+    animation-duration: 24s;
+  }
+
+  .floatInventory {
+    animation-name: hero-layer-one-mobile;
+  }
+
+  .floatAutomation {
+    animation-name: hero-layer-two-mobile;
+  }
+
+  .sceneCatalog {
+    animation-name: hero-layer-two-mobile;
+  }
+
+  .architectureSection {
+    animation-duration: 56s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site *,
+  .site *::before,
+  .site *::after {
+    animation: none !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+@keyframes hero-layer-one-mobile {
+  0%, 100% { transform: scale(.83) translateY(0); }
+  50% { transform: scale(.83) translateY(-5px); }
+}
+
+@keyframes hero-layer-two-mobile {
+  0%, 100% { transform: scale(.83) translateY(0); }
+  50% { transform: scale(.83) translateY(4px); }
+}
+
+@media (max-width: 430px) {
+  @keyframes hero-layer-two-mobile {
+    0%, 100% { transform: scale(.82) translateY(0); }
+    50% { transform: scale(.82) translateY(4px); }
+  }
+}
+
 /* Burgundy graphite art direction */
 .site {
   --ink: #f0ebeb;
@@ -6837,6 +8115,837 @@
   .site *::after {
     animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* Final workspace palette layer, kept last so legacy theme rules cannot override it. */
+.site {
+  --ink: #172033;
+  --muted: #64748b;
+  --line: #e7eaf0;
+  --violet: #6658d3;
+  --violet-dark: #5143bf;
+  --paper: #f6f7f9;
+  background: #f6f7f9 !important;
+  color: #172033 !important;
+}
+
+.navbar {
+  border-bottom-color: rgb(226 230 237 / 88%) !important;
+  background: rgb(255 255 255 / 91%) !important;
+}
+
+.brand,
+.hero h1,
+.sectionIntro h2,
+.architectureIntro h2,
+.managementIntro h2,
+.stepsIntro h2,
+.intelligenceCopy h2,
+.ctaContent h2,
+.previewHeading h2,
+.statCard > strong,
+.featureItem h3,
+.archNode b,
+.workspaceCore > b,
+.mockHeader h3,
+.tableRow b,
+.tableRow strong,
+.orderSummary b,
+.flowNode b,
+.step h3 {
+  color: #172033 !important;
+}
+
+.brandMark {
+  border-color: rgb(255 255 255 / 10%) !important;
+  border-radius: 10px !important;
+  background: linear-gradient(145deg, #7769ed, #5346c4) !important;
+  box-shadow: 0 4px 11px rgb(79 70 180 / 17%) !important;
+}
+
+.brandMark i {
+  border-radius: 2px !important;
+}
+
+.brandMark i:nth-child(2),
+.brandMark i:nth-child(3) {
+  opacity: .65 !important;
+}
+
+.navLinks,
+.dashboardLink,
+.heroLead,
+.sectionIntro > p,
+.managementIntro > p,
+.architectureIntro p,
+.intelligenceCopy > p,
+.step > p,
+.ctaContent > p,
+.trustLine,
+.featureItem p,
+.archNode small,
+.workspaceCore > small,
+.tableRow,
+.customerStat span,
+.customerList small {
+  color: #647087 !important;
+}
+
+.navLinks a:hover,
+.dashboardLink:hover,
+.footerMain nav a:hover,
+.textLink,
+.featureArrow,
+.featureIcon,
+.featureNumber,
+.stepNumber,
+.mockEyebrow,
+.customerTotal,
+.customerListHead span,
+.progressLabels b {
+  color: #6658d3 !important;
+}
+
+.navLinks a:first-child::before,
+.eyebrowLine,
+.heroFoot > i,
+.stepRule i,
+.progressTrack i {
+  background: #776bd1 !important;
+}
+
+.hero {
+  border-bottom-color: #e7eaf0 !important;
+  background: linear-gradient(180deg, #fff 0%, #fafbfc 67%, #f5f6fa 100%) !important;
+}
+
+.heroBackdrop {
+  background-image:
+    linear-gradient(rgb(91 105 131 / 3%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(91 105 131 / 3%) 1px, transparent 1px) !important;
+  background-size: 72px 72px !important;
+  opacity: .58 !important;
+}
+
+.heroBackdrop::before {
+  position: absolute !important;
+  top: -25% !important;
+  left: 24% !important;
+  width: 57% !important;
+  height: 62% !important;
+  border-radius: 50% !important;
+  background: radial-gradient(ellipse, rgb(155 143 255 / 13%), rgb(199 194 255 / 7%) 38%, transparent 72%) !important;
+  content: "" !important;
+  filter: blur(28px) !important;
+  animation: ambient-lavender 48s ease-in-out infinite alternate !important;
+}
+
+.hero::before {
+  background: linear-gradient(to bottom, #776bd1 0 30px, #e1e5ed 30px 100%) !important;
+}
+
+.hero::after {
+  color: #8893a6 !important;
+}
+
+.hero h1 span,
+.sectionIntro h2 span,
+.architectureIntro h2 span,
+.stepsIntro h2 span,
+.intelligenceCopy h2 span,
+.ctaContent h2 span {
+  background: none !important;
+  color: #6658d3 !important;
+  -webkit-text-fill-color: #6658d3 !important;
+}
+
+.eyebrow,
+.heroEyebrow,
+.ctaEyebrow,
+.liveLabel {
+  color: #6658d3 !important;
+}
+
+.navCta,
+.primaryButton,
+.ctaButton {
+  border-color: #6658d3 !important;
+  border-radius: 9px !important;
+  background: #6658d3 !important;
+  box-shadow: 0 4px 10px rgb(102 88 211 / 18%) !important;
+}
+
+.navCta:hover,
+.primaryButton:hover,
+.ctaButton:hover {
+  border-color: #5143bf !important;
+  background: #5143bf !important;
+  box-shadow: 0 7px 16px rgb(102 88 211 / 24%) !important;
+}
+
+.secondaryButton {
+  border-color: #e1e5ec !important;
+  border-radius: 9px !important;
+  background: #fff !important;
+  color: #475166 !important;
+}
+
+.secondaryButton:hover {
+  border-color: #c9cddd !important;
+  background: #fafbfc !important;
+}
+
+.trustCheck {
+  border-color: #e3e0ff !important;
+  color: #5548c3 !important;
+}
+
+.trustLine > i {
+  background: #dfe3eb !important;
+}
+
+.previewGlow {
+  background: rgb(112 98 220 / 12%) !important;
+}
+
+.previewFrame {
+  border-color: #e2e6ed !important;
+  border-radius: 12px 12px 0 0 !important;
+  background: #fff !important;
+  box-shadow: 0 18px 48px rgb(19 31 52 / 8%), 0 2px 7px rgb(19 31 52 / 3%) !important;
+}
+
+.previewSidebar {
+  border-right-color: rgb(255 255 255 / 7%) !important;
+  background: #111827 !important;
+}
+
+.previewBrand,
+.previewSidebar .sidebarBottom {
+  color: #fff !important;
+}
+
+.previewSidebar .brandMark {
+  width: 25px !important;
+  height: 25px !important;
+  border-radius: 9px !important;
+  padding: 6px !important;
+}
+
+.sidebarCaption {
+  color: #798396 !important;
+}
+
+.sidebarItem {
+  border-radius: 8px !important;
+  color: #aab3c2 !important;
+}
+
+.sidebarItem > svg,
+.navGlyph {
+  color: #9aa6b8 !important;
+}
+
+.sidebarActive {
+  background: linear-gradient(90deg, rgb(105 91 222 / 24%), rgb(105 91 222 / 12%)) !important;
+  color: #fff !important;
+}
+
+.sidebarActive > svg,
+.sidebarActive .navGlyph {
+  color: #a99fff !important;
+}
+
+.navCount {
+  background: rgb(255 255 255 / 9%) !important;
+  color: #d0d5df !important;
+}
+
+.sidebarBottom {
+  border-top-color: rgb(255 255 255 / 10%) !important;
+}
+
+.sidebarBottom small {
+  color: #9aa5b7 !important;
+}
+
+.avatar,
+.avatarSmall {
+  border-color: #e3e0ff !important;
+  border-radius: 8px !important;
+  background: #f0eeff !important;
+  color: #5548c3 !important;
+}
+
+.previewMain,
+.previewContent {
+  background: #fff !important;
+}
+
+.previewTopbar,
+.chartCard,
+.ordersCard,
+.statCard,
+.managementCard,
+.flowPanel {
+  border-color: #e6e9f0 !important;
+}
+
+.previewSearch,
+.dateButton,
+.statCard,
+.chartCard,
+.ordersCard,
+.managementCard,
+.flowPanel {
+  background: #fff !important;
+}
+
+.previewSearch,
+.dateButton,
+.statLabel,
+.statCard > small,
+.cardHeading small,
+.chartLegend,
+.chartY,
+.chartX,
+.breadcrumb,
+.previewHeading p,
+.orderRow > span:nth-child(2) small {
+  color: #768195 !important;
+}
+
+.liveLabel i,
+.healthDot {
+  background: #54a77b !important;
+  box-shadow: 0 0 0 3px rgb(84 167 123 / 12%) !important;
+}
+
+.statCard > small b {
+  color: #4c9670 !important;
+}
+
+.miniBars i {
+  background: linear-gradient(0deg, #8173e0, #d4d0ff) !important;
+}
+
+.sparkline path,
+.chartLine {
+  stroke: #7567d8 !important;
+}
+
+.productDots i,
+.productDots i:nth-child(3n) {
+  background: #8173e0 !important;
+}
+
+.productDots i:nth-child(4n) {
+  background: #e4e1ff !important;
+}
+
+.customerAvatars i {
+  border-color: #fff !important;
+  background: #f0eeff !important;
+  color: #5548c3 !important;
+}
+
+.chartArea {
+  background: repeating-linear-gradient(to bottom, transparent 0, transparent 37px, #e9ecf2 38px, transparent 39px) !important;
+}
+
+.chartLegend i {
+  background: #7567d8 !important;
+}
+
+.orderRow {
+  border-top-color: #e9ecf2 !important;
+}
+
+.orderIcon {
+  background: #f0eeff !important;
+  color: #5548c3 !important;
+}
+
+.orderRow > span:nth-child(2) b,
+.orderRow > strong {
+  color: #334056 !important;
+}
+
+.orderStatus {
+  background: #edf5f1 !important;
+  color: #4b8066 !important;
+}
+
+.orderPending,
+.statusLow,
+.processingTag {
+  background: #f8f4e9 !important;
+  color: #96763e !important;
+}
+
+.floatInventory,
+.floatAutomation,
+.sceneOrder,
+.sceneCatalog {
+  border-color: #e3e6ef !important;
+  background: rgb(255 255 255 / 96%) !important;
+  box-shadow: 0 10px 25px rgb(19 31 52 / 9%) !important;
+}
+
+.floatIcon,
+.nodeIcon,
+.coreMark,
+.flowNode > span {
+  background: #f0eeff !important;
+  color: #6658d3 !important;
+}
+
+.floatInventory b,
+.floatAutomation b,
+.sceneOrder b,
+.sceneKnowledge b {
+  color: #253149 !important;
+}
+
+.floatInventory small,
+.floatAutomation small,
+.sceneOrder span,
+.sceneCatalog span,
+.sceneKnowledge span {
+  color: #768195 !important;
+}
+
+.flowPulse,
+.sceneCatalog b,
+.sceneCustomers b {
+  color: #6658d3 !important;
+}
+
+.flowPulse {
+  background: #7567d8 !important;
+  box-shadow: 0 0 0 3px rgb(117 103 216 / 13%) !important;
+}
+
+.sceneOrder {
+  border-left-color: #7567d8 !important;
+}
+
+.sceneOrder i,
+.sceneKnowledge > i {
+  background: #54a77b !important;
+}
+
+.sceneCatalog {
+  border-top-color: #dce1ea !important;
+}
+
+.sceneKnowledge {
+  border-bottom-color: #dce1ea !important;
+}
+
+.heroFoot {
+  border-top-color: #e2e6ed !important;
+  color: #768195 !important;
+}
+
+.featuresSection,
+.managementSection,
+.stepsSection {
+  background: #fff !important;
+}
+
+.featureGrid {
+  border-color: #e6e9f0 !important;
+}
+
+.featureItem {
+  border-color: #e6e9f0 !important;
+  background: #fff !important;
+}
+
+.featureItem:hover {
+  border-color: #d5d1f4 !important;
+  background: #fafaff !important;
+  box-shadow: 0 8px 22px rgb(19 31 52 / 5%) !important;
+}
+
+.featureItem::before {
+  background:
+    radial-gradient(ellipse at 105% 110%, rgb(117 103 218 / 9%), transparent 53%),
+    linear-gradient(115deg, transparent 35%, rgb(255 255 255 / 0%) 48%, rgb(255 255 255 / 78%) 50%, transparent 53%) !important;
+}
+
+.featureIcon {
+  color: #6658d3 !important;
+}
+
+.featureItem:hover .featureIcon,
+.featureItem:focus-visible .featureIcon {
+  color: #5143bf !important;
+}
+
+.featureItem:first-child::after {
+  border-top-color: #dfe3eb !important;
+  background:
+    linear-gradient(164deg, transparent 46%, rgb(102 88 211 / 70%) 47% 48%, transparent 49%),
+    repeating-linear-gradient(90deg, transparent 0 22px, rgb(102 88 211 / 8%) 22px 23px) !important;
+}
+
+.architectureSection,
+.intelligenceSection {
+  border-color: #e4e8ef !important;
+  background-color: #f6f7f9 !important;
+}
+
+.architectureSection {
+  background-image: linear-gradient(90deg, rgb(23 32 51 / 2.5%) 1px, transparent 1px) !important;
+  animation: architecture-light 48s ease-in-out infinite alternate !important;
+}
+
+.connectionSvg path {
+  stroke: #cbd2df !important;
+}
+
+.connectionSvg .connectionPulse {
+  stroke: #8173e0 !important;
+  filter: none !important;
+}
+
+.archNode {
+  border-color: #e1e5ec !important;
+  background: #fff !important;
+  box-shadow: 0 2px 6px rgb(19 31 52 / 3%), 0 8px 18px rgb(19 31 52 / 3%) !important;
+}
+
+.archNode:hover {
+  border-color: #c9c3fa !important;
+  box-shadow: 0 5px 14px rgb(19 31 52 / 7%) !important;
+}
+
+.nodeIcon {
+  background: #f0eeff !important;
+  color: #6658d3 !important;
+}
+
+.workspaceCore {
+  border-color: #c9c3fa !important;
+  background: #fff !important;
+  box-shadow: 0 0 0 9px rgb(246 247 249 / 84%), 0 0 0 10px #e1e5ec, 0 12px 28px rgb(19 31 52 / 7%) !important;
+}
+
+.coreMark {
+  border-color: #e3e0ff !important;
+  background: #f0eeff !important;
+}
+
+.coreLabel,
+.archBottom i {
+  color: #776bd1 !important;
+}
+
+.archBottom i {
+  background: #776bd1 !important;
+}
+
+.mockEyebrow {
+  color: #776bd1 !important;
+}
+
+.mockAction,
+.mockSearch,
+.filterButton,
+.iconButton,
+.orderSummary,
+.fulfillment,
+.customerChart,
+.stepMicro > span {
+  border-color: #e1e5ec !important;
+  background: #fff !important;
+}
+
+.mockAction,
+.packageGlyph,
+.smallOrderGlyph,
+.fulfillmentTag,
+.stepMicro svg {
+  color: #5548c3 !important;
+}
+
+.tableHead,
+.tableRow,
+.customerList > div:not(.customerListHead),
+.fulfillmentSecondary,
+.orderSummary > div + div {
+  border-color: #e9ecf2 !important;
+}
+
+.tableStatus {
+  background: #edf5f1 !important;
+  color: #4b8066 !important;
+}
+
+.progressTrack {
+  background: #e9ecf2 !important;
+}
+
+.progressTrack i {
+  background: linear-gradient(90deg, #6658d3, #9b8fff) !important;
+}
+
+.customerBars i {
+  background: #d8d4ff !important;
+}
+
+.customerBars i:nth-child(4n) {
+  background: #8173e0 !important;
+}
+
+.avatarLilac {
+  background: #f0eeff !important;
+  color: #5548c3 !important;
+}
+
+.avatarSand {
+  background: #eef2fa !important;
+  color: #53617b !important;
+}
+
+.flowPanel {
+  box-shadow: 0 2px 6px rgb(19 31 52 / 2%), 0 12px 30px rgb(19 31 52 / 2%) !important;
+}
+
+.flowHead,
+.flowFoot {
+  border-color: #e9ecf2 !important;
+  color: #768195 !important;
+}
+
+.flowHead i {
+  color: #4b8066 !important;
+}
+
+.flowNode {
+  border-color: #e6e9f0 !important;
+  background: #fff !important;
+}
+
+.flowNode:hover {
+  border-color: #d5d1f4 !important;
+  background: #fafaff !important;
+}
+
+.flowNode > span,
+.flowKnowledge > span,
+.flowAi > span,
+.flowAuto > span,
+.flowCustomer > span {
+  background: #f0eeff !important;
+  color: #6658d3 !important;
+}
+
+.flowConnector {
+  background: #d7dbea !important;
+}
+
+.flowConnector i {
+  background: #8173e0 !important;
+  box-shadow: 0 0 0 3px rgb(129 115 224 / 12%) !important;
+}
+
+.stepRule {
+  background: #e1e5ec !important;
+}
+
+.stepMicro > span {
+  color: #536078 !important;
+}
+
+.stepDone {
+  border-color: #dcebe2 !important;
+  background: #f3f8f5 !important;
+  color: #4b8066 !important;
+}
+
+.stepFlow {
+  border-color: #e3e0ff !important;
+  background: #f0eeff !important;
+  color: #5548c3 !important;
+}
+
+.finalCta {
+  border-color: #dfe3eb !important;
+  background: #eef0f8 !important;
+}
+
+.ctaGrid {
+  background-image:
+    linear-gradient(rgb(72 85 114 / 4%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(72 85 114 / 4%) 1px, transparent 1px) !important;
+}
+
+.ctaOrb {
+  border-color: rgb(102 88 211 / 17%) !important;
+  box-shadow: 0 0 0 42px rgb(102 88 211 / 2%), 0 0 0 84px rgb(102 88 211 / 1%) !important;
+}
+
+.ctaEyebrow,
+.ctaFoot {
+  color: #776bd1 !important;
+}
+
+.footer {
+  border-top-color: #e4e8ef !important;
+  background: #fff !important;
+}
+
+.footer::before {
+  background: linear-gradient(90deg, transparent, rgb(102 88 211 / 22%), transparent) !important;
+}
+
+.footerMain {
+  border-bottom-color: #e7eaf0 !important;
+}
+
+.footerMain > p,
+.footerMain nav,
+.footerBottom {
+  color: #647087 !important;
+}
+
+.footerMain nav svg,
+.footerBottom i {
+  color: #6658d3 !important;
+}
+
+.navCta,
+.primaryButton,
+.ctaButton {
+  position: relative;
+  overflow: hidden;
+}
+
+.navCta::after,
+.primaryButton::after,
+.ctaButton::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 22%) 50%, transparent 70%);
+  content: "";
+  opacity: 0;
+  transform: translateX(-110%);
+  transition: transform 650ms ease, opacity 250ms ease;
+}
+
+.navCta:hover::after,
+.primaryButton:hover::after,
+.ctaButton:hover::after {
+  opacity: 1;
+  transform: translateX(110%);
+}
+
+.floatInventory {
+  animation: hero-layer-one 15s ease-in-out infinite !important;
+}
+
+.floatAutomation {
+  animation: hero-layer-two 19s ease-in-out infinite !important;
+}
+
+.sceneOrder {
+  animation: hero-layer-three 17s ease-in-out infinite !important;
+}
+
+.sceneCatalog {
+  animation: hero-layer-two 21s ease-in-out infinite !important;
+}
+
+.liveLabel i,
+.healthDot,
+.flowHead i b,
+.flowPulse,
+.sceneOrder i,
+.sceneKnowledge > i {
+  animation: status-breathe 3.8s ease-in-out infinite !important;
+}
+
+@keyframes ambient-lavender {
+  0% { transform: translate3d(-7%, -3%, 0) scale(.95); opacity: .62; }
+  50% { transform: translate3d(5%, 4%, 0) scale(1.04); opacity: .9; }
+  100% { transform: translate3d(12%, -2%, 0) scale(1); opacity: .7; }
+}
+
+@keyframes hero-layer-one {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes hero-layer-two {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+@keyframes hero-layer-three {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes architecture-light {
+  0% { background-position: 42% 50%; }
+  100% { background-position: 58% 50%; }
+}
+
+@media (max-width: 760px) {
+  .heroBackdrop::before {
+    top: -7% !important;
+    left: 1% !important;
+    width: 98% !important;
+    height: 45% !important;
+    filter: blur(23px) !important;
+    animation-duration: 56s !important;
+  }
+
+  .floatInventory {
+    animation: hero-layer-one-mobile 24s ease-in-out infinite !important;
+  }
+
+  .floatAutomation {
+    animation: hero-layer-two-mobile 24s ease-in-out infinite !important;
+  }
+
+  .sceneCatalog {
+    animation: hero-layer-two-mobile 24s ease-in-out infinite !important;
+  }
+
+  .architectureSection {
+    animation-duration: 56s !important;
+  }
+}
+
+@keyframes hero-layer-one-mobile {
+  0%, 100% { transform: scale(.83) translateY(0); }
+  50% { transform: scale(.83) translateY(-5px); }
+}
+
+@keyframes hero-layer-two-mobile {
+  0%, 100% { transform: scale(.83) translateY(0); }
+  50% { transform: scale(.83) translateY(4px); }
+}
+
+@media (max-width: 430px) {
+  @keyframes hero-layer-two-mobile {
+    0%, 100% { transform: scale(.82) translateY(0); }
+    50% { transform: scale(.82) translateY(4px); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site *,
+  .site *::before,
+  .site *::after {
+    animation: none !important;
     scroll-behavior: auto !important;
     transition-duration: .01ms !important;
   }
@@ -8315,3 +10424,148 @@
     transition-duration: .01ms !important;
   }
 }
+/* End-of-file workspace palette wins over legacy homepage themes. */
+.site { --ink: #172033; --muted: #64748b; --line: #e7eaf0; --violet: #6658d3; --violet-dark: #5143bf; --paper: #f6f7f9; background: #f6f7f9 !important; color: #172033 !important; }
+.navbar { box-shadow: 0 5px 22px rgb(19 31 52 / 4%) !important; }
+.previewFrame { box-shadow: 0 18px 48px rgb(19 31 52 / 8%), 0 2px 7px rgb(19 31 52 / 3%) !important; }
+.managementCard, .flowPanel { box-shadow: 0 2px 6px rgb(19 31 52 / 2%), 0 12px 30px rgb(19 31 52 / 2%) !important; }
+.managementCard:hover { box-shadow: 0 7px 18px rgb(19 31 52 / 6%) !important; }
+.navbar { border-bottom-color: rgb(226 230 237 / 88%) !important; background: rgb(255 255 255 / 91%) !important; }
+.brand, .hero h1, .sectionIntro h2, .architectureIntro h2, .managementIntro h2, .stepsIntro h2, .intelligenceCopy h2, .ctaContent h2, .previewHeading h2, .statCard > strong, .featureItem h3, .archNode b, .workspaceCore > b, .mockHeader h3, .tableRow b, .tableRow strong, .orderSummary b, .flowNode b, .step h3 { color: #172033 !important; }
+.navLinks, .dashboardLink, .heroLead, .sectionIntro > p, .managementIntro > p, .architectureIntro p, .intelligenceCopy > p, .step > p, .ctaContent > p, .trustLine, .featureItem p, .archNode small, .workspaceCore > small, .tableRow, .customerStat span, .customerList small { color: #647087 !important; }
+.navLinks a:hover, .dashboardLink:hover, .footerMain nav a:hover, .textLink, .featureArrow, .featureIcon, .featureNumber, .stepNumber, .mockEyebrow, .customerTotal, .customerListHead span, .progressLabels b { color: #6658d3 !important; }
+.brandMark { border-color: rgb(255 255 255 / 10%) !important; border-radius: 10px !important; background: linear-gradient(145deg, #7769ed, #5346c4) !important; padding: 7px !important; box-shadow: 0 4px 11px rgb(79 70 180 / 17%) !important; }
+.brandMark i { border-radius: 2px !important; }
+.brandMark i:nth-child(2), .brandMark i:nth-child(3) { opacity: .65 !important; }
+.navLinks a:first-child::before, .eyebrowLine, .heroFoot > i, .stepRule i, .progressTrack i { background: #776bd1 !important; }
+.hero { border-bottom-color: #e7eaf0 !important; background: linear-gradient(180deg, #fff 0%, #fafbfc 67%, #f5f6fa 100%) !important; }
+.heroBackdrop { background-image: linear-gradient(rgb(91 105 131 / 3%) 1px, transparent 1px), linear-gradient(90deg, rgb(91 105 131 / 3%) 1px, transparent 1px) !important; background-size: 72px 72px !important; opacity: .58 !important; }
+.heroBackdrop::before { position: absolute !important; top: -25% !important; left: 24% !important; width: 57% !important; height: 62% !important; border-radius: 50% !important; background: radial-gradient(ellipse, rgb(155 143 255 / 13%), rgb(199 194 255 / 7%) 38%, transparent 72%) !important; content: "" !important; filter: blur(28px) !important; animation: ambient-lavender 48s ease-in-out infinite alternate !important; }
+.hero::before { background: linear-gradient(to bottom, #776bd1 0 30px, #e1e5ed 30px 100%) !important; }
+.hero::after { color: #8893a6 !important; }
+.hero h1 span, .sectionIntro h2 span, .architectureIntro h2 span, .stepsIntro h2 span, .intelligenceCopy h2 span, .ctaContent h2 span { background: none !important; color: #6658d3 !important; -webkit-text-fill-color: #6658d3 !important; }
+.eyebrow, .heroEyebrow, .ctaEyebrow, .liveLabel { color: #6658d3 !important; }
+.navCta, .primaryButton, .ctaButton { border-color: #6658d3 !important; border-radius: 9px !important; background: #6658d3 !important; box-shadow: 0 4px 10px rgb(102 88 211 / 18%) !important; }
+.navCta:hover, .primaryButton:hover, .ctaButton:hover { border-color: #5143bf !important; background: #5143bf !important; box-shadow: 0 7px 16px rgb(102 88 211 / 24%) !important; }
+.secondaryButton { border-color: #e1e5ec !important; border-radius: 9px !important; background: #fff !important; color: #475166 !important; }
+.secondaryButton:hover { border-color: #c9cddd !important; background: #fafbfc !important; }
+.trustCheck { border-color: #e3e0ff !important; color: #5548c3 !important; }
+.trustLine > i { background: #dfe3eb !important; }
+.previewGlow { background: rgb(112 98 220 / 12%) !important; }
+.previewFrame { border-color: #e2e6ed !important; border-radius: 12px 12px 0 0 !important; background: #fff !important; box-shadow: 0 18px 48px rgb(19 31 52 / 8%), 0 2px 7px rgb(19 31 52 / 3%) !important; }
+.previewSidebar { border-right-color: rgb(255 255 255 / 7%) !important; background: #111827 !important; }
+.previewBrand, .previewSidebar .sidebarBottom { color: #fff !important; }
+.previewSidebar .brandMark { width: 25px !important; height: 25px !important; border-radius: 9px !important; padding: 6px !important; }
+.sidebarCaption { color: #798396 !important; }
+.sidebarItem { border-radius: 8px !important; color: #aab3c2 !important; }
+.sidebarItem > svg, .navGlyph { color: #9aa6b8 !important; }
+.sidebarActive { background: linear-gradient(90deg, rgb(105 91 222 / 24%), rgb(105 91 222 / 12%)) !important; color: #fff !important; }
+.sidebarActive > svg, .sidebarActive .navGlyph { color: #a99fff !important; }
+.navCount { background: rgb(255 255 255 / 9%) !important; color: #d0d5df !important; }
+.sidebarBottom { border-top-color: rgb(255 255 255 / 10%) !important; }
+.sidebarBottom small { color: #9aa5b7 !important; }
+.avatar, .avatarSmall { border-color: #e3e0ff !important; border-radius: 8px !important; background: #f0eeff !important; color: #5548c3 !important; }
+.previewMain, .previewContent { background: #fff !important; }
+.previewTopbar, .chartCard, .ordersCard, .statCard, .managementCard, .flowPanel { border-color: #e6e9f0 !important; }
+.previewSearch, .dateButton, .statCard, .chartCard, .ordersCard, .managementCard, .flowPanel { background: #fff !important; }
+.previewSearch, .dateButton, .statLabel, .statCard > small, .cardHeading small, .chartLegend, .chartY, .chartX, .breadcrumb, .previewHeading p, .orderRow > span:nth-child(2) small { color: #768195 !important; }
+.liveLabel i, .healthDot { background: #54a77b !important; box-shadow: 0 0 0 3px rgb(84 167 123 / 12%) !important; }
+.statCard > small b { color: #4c9670 !important; }
+.miniBars i { background: linear-gradient(0deg, #8173e0, #d4d0ff) !important; }
+.sparkline path, .chartLine { stroke: #7567d8 !important; }
+.productDots i, .productDots i:nth-child(3n) { background: #8173e0 !important; }
+.productDots i:nth-child(4n) { background: #e4e1ff !important; }
+.customerAvatars i { border-color: #fff !important; background: #f0eeff !important; color: #5548c3 !important; }
+.chartArea { background: repeating-linear-gradient(to bottom, transparent 0, transparent 37px, #e9ecf2 38px, transparent 39px) !important; }
+.chartLegend i { background: #7567d8 !important; }
+.orderRow { border-top-color: #e9ecf2 !important; }
+.orderIcon { background: #f0eeff !important; color: #5548c3 !important; }
+.orderRow > span:nth-child(2) b, .orderRow > strong { color: #334056 !important; }
+.orderStatus { background: #edf5f1 !important; color: #4b8066 !important; }
+.orderPending, .statusLow, .processingTag { background: #f8f4e9 !important; color: #96763e !important; }
+.floatInventory, .floatAutomation, .sceneOrder, .sceneCatalog { border-color: #e3e6ef !important; background: rgb(255 255 255 / 96%) !important; box-shadow: 0 10px 25px rgb(19 31 52 / 9%) !important; }
+.floatIcon, .nodeIcon, .coreMark, .flowNode > span { background: #f0eeff !important; color: #6658d3 !important; }
+.floatInventory b, .floatAutomation b, .sceneOrder b, .sceneKnowledge b { color: #253149 !important; }
+.floatInventory small, .floatAutomation small, .sceneOrder span, .sceneCatalog span, .sceneKnowledge span { color: #768195 !important; }
+.flowPulse { background: #7567d8 !important; box-shadow: 0 0 0 3px rgb(117 103 216 / 13%) !important; }
+.sceneOrder { border-left-color: #7567d8 !important; }
+.sceneOrder i, .sceneKnowledge > i { background: #54a77b !important; }
+.sceneCatalog { border-top-color: #dce1ea !important; }
+.sceneKnowledge { border-bottom-color: #dce1ea !important; }
+.heroFoot { border-top-color: #e2e6ed !important; color: #768195 !important; }
+.featuresSection, .managementSection, .stepsSection { background: #fff !important; }
+.featureGrid { border-color: #e6e9f0 !important; }
+.featureItem { border-color: #e6e9f0 !important; background: #fff !important; }
+.featureItem:hover { border-color: #d5d1f4 !important; background: #fafaff !important; box-shadow: 0 8px 22px rgb(19 31 52 / 5%) !important; }
+.featureItem::before { background: radial-gradient(ellipse at 105% 110%, rgb(117 103 218 / 9%), transparent 53%), linear-gradient(115deg, transparent 35%, rgb(255 255 255 / 0%) 48%, rgb(255 255 255 / 78%) 50%, transparent 53%) !important; }
+.featureItem:first-child::after { border-top-color: #dfe3eb !important; background: linear-gradient(164deg, transparent 46%, rgb(102 88 211 / 70%) 47% 48%, transparent 49%), repeating-linear-gradient(90deg, transparent 0 22px, rgb(102 88 211 / 8%) 22px 23px) !important; }
+.architectureSection, .intelligenceSection { border-color: #e4e8ef !important; background-color: #f6f7f9 !important; }
+.architectureSection { background-image: linear-gradient(90deg, rgb(23 32 51 / 2.5%) 1px, transparent 1px) !important; animation: architecture-light 48s ease-in-out infinite alternate !important; }
+.connectionSvg path { stroke: #cbd2df !important; }
+.connectionSvg .connectionPulse { stroke: #8173e0 !important; filter: none !important; }
+.archNode { border-color: #e1e5ec !important; background: #fff !important; box-shadow: 0 2px 6px rgb(19 31 52 / 3%), 0 8px 18px rgb(19 31 52 / 3%) !important; }
+.archNode:hover { border-color: #c9c3fa !important; box-shadow: 0 5px 14px rgb(19 31 52 / 7%) !important; }
+.nodeIcon { background: #f0eeff !important; color: #6658d3 !important; }
+.workspaceCore { border-color: #c9c3fa !important; background: #fff !important; box-shadow: 0 0 0 9px rgb(246 247 249 / 84%), 0 0 0 10px #e1e5ec, 0 12px 28px rgb(19 31 52 / 7%) !important; }
+.coreMark { border-color: #e3e0ff !important; background: #f0eeff !important; }
+.coreLabel { color: #776bd1 !important; }
+.archBottom i { background: #776bd1 !important; box-shadow: none !important; }
+.mockEyebrow { color: #776bd1 !important; }
+.mockAction, .mockSearch, .filterButton, .iconButton, .orderSummary, .fulfillment, .customerChart, .stepMicro > span { border-color: #e1e5ec !important; background: #fff !important; }
+.mockAction, .packageGlyph, .smallOrderGlyph, .fulfillmentTag, .stepMicro svg { color: #5548c3 !important; }
+.tableHead, .tableRow, .customerList > div:not(.customerListHead), .fulfillmentSecondary, .orderSummary > div + div { border-color: #e9ecf2 !important; }
+.tableStatus { background: #edf5f1 !important; color: #4b8066 !important; }
+.progressTrack { background: #e9ecf2 !important; }
+.progressTrack i { background: linear-gradient(90deg, #6658d3, #9b8fff) !important; }
+.customerBars i { background: #d8d4ff !important; }
+.customerBars i:nth-child(4n) { background: #8173e0 !important; }
+.avatarLilac { background: #f0eeff !important; color: #5548c3 !important; }
+.avatarSand { background: #eef2fa !important; color: #53617b !important; }
+.flowPanel { box-shadow: 0 2px 6px rgb(19 31 52 / 2%), 0 12px 30px rgb(19 31 52 / 2%) !important; }
+.flowHead, .flowFoot { border-color: #e9ecf2 !important; color: #768195 !important; }
+.flowHead i { color: #4b8066 !important; }
+.flowNode { border-color: #e6e9f0 !important; background: #fff !important; }
+.flowNode:hover { border-color: #d5d1f4 !important; background: #fafaff !important; }
+.flowNode > span, .flowKnowledge > span, .flowAi > span, .flowAuto > span, .flowCustomer > span { background: #f0eeff !important; color: #6658d3 !important; }
+.flowConnector { background: #d7dbea !important; box-shadow: none !important; }
+.flowConnector i { background: #8173e0 !important; box-shadow: 0 0 0 3px rgb(129 115 224 / 12%) !important; }
+.stepRule { background: #e1e5ec !important; }
+.stepMicro > span { color: #536078 !important; }
+.stepDone { border-color: #dcebe2 !important; background: #f3f8f5 !important; color: #4b8066 !important; }
+.stepFlow { border-color: #e3e0ff !important; background: #f0eeff !important; color: #5548c3 !important; }
+.finalCta { border-color: #dfe3eb !important; background: #eef0f8 !important; }
+.ctaGrid { background-image: linear-gradient(rgb(72 85 114 / 4%) 1px, transparent 1px), linear-gradient(90deg, rgb(72 85 114 / 4%) 1px, transparent 1px) !important; }
+.ctaOrb { border-color: rgb(102 88 211 / 17%) !important; box-shadow: 0 0 0 42px rgb(102 88 211 / 2%), 0 0 0 84px rgb(102 88 211 / 1%) !important; }
+.ctaFoot { color: #778297 !important; }
+.footer { border-top-color: #e4e8ef !important; background: #fff !important; }
+.footer::before { background: linear-gradient(90deg, transparent, rgb(102 88 211 / 22%), transparent) !important; }
+.footerMain { border-bottom-color: #e7eaf0 !important; }
+.footerMain > p, .footerMain nav, .footerBottom { color: #647087 !important; }
+.footerMain nav svg, .footerBottom i { color: #6658d3 !important; }
+.navCta, .primaryButton, .ctaButton { position: relative; overflow: hidden; }
+.navCta::after, .primaryButton::after, .ctaButton::after { position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 22%) 50%, transparent 70%); content: ""; opacity: 0; transform: translateX(-110%); transition: transform 650ms ease, opacity 250ms ease; }
+.navCta:hover::after, .primaryButton:hover::after, .ctaButton:hover::after { opacity: 1; transform: translateX(110%); }
+.floatInventory { animation: hero-layer-one 15s ease-in-out infinite !important; }
+.floatAutomation { animation: hero-layer-two 19s ease-in-out infinite !important; }
+.sceneOrder { animation: hero-layer-three 17s ease-in-out infinite !important; }
+.sceneCatalog { animation: hero-layer-two 21s ease-in-out infinite !important; }
+.liveLabel i, .healthDot, .flowHead i b, .flowPulse, .sceneOrder i, .sceneKnowledge > i { animation: status-breathe 3.8s ease-in-out infinite !important; }
+@keyframes ambient-lavender { 0% { transform: translate3d(-7%, -3%, 0) scale(.95); opacity: .62; } 50% { transform: translate3d(5%, 4%, 0) scale(1.04); opacity: .9; } 100% { transform: translate3d(12%, -2%, 0) scale(1); opacity: .7; } }
+@keyframes hero-layer-one { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes hero-layer-two { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+@keyframes hero-layer-three { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+@keyframes architecture-light { 0% { background-position: 42% 50%; } 100% { background-position: 58% 50%; } }
+@media (max-width: 760px) {
+  .heroBackdrop::before { top: -7% !important; left: 1% !important; width: 98% !important; height: 45% !important; filter: blur(23px) !important; animation-duration: 56s !important; }
+  .floatInventory { animation: hero-layer-one-mobile 24s ease-in-out infinite !important; }
+  .floatAutomation, .sceneCatalog { animation: hero-layer-two-mobile 24s ease-in-out infinite !important; }
+  .architectureSection { animation-duration: 56s !important; }
+}
+@keyframes hero-layer-one-mobile { 0%, 100% { transform: scale(.83) translateY(0); } 50% { transform: scale(.83) translateY(-5px); } }
+@keyframes hero-layer-two-mobile { 0%, 100% { transform: scale(.83) translateY(0); } 50% { transform: scale(.83) translateY(4px); } }
+@media (max-width: 430px) {
+  @keyframes hero-layer-two-mobile { 0%, 100% { transform: scale(.82) translateY(0); } 50% { transform: scale(.82) translateY(4px); } }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .site *, .site *::before, .site *::after { animation: none !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+  }
